@@ -481,7 +481,11 @@
                 }
                 // pow = (Math.abs(total_points)-1<0)?0:Math.abs(total_points)-1
                 overall_points[n_key]+=total_points
-                $("#history").append("<li class='list-group-item'>"+player_names[n_key]+"  "+chinese_hu+": "+total_points+"分</li>")
+                if (total_points>0){
+                    $("#history").append("<li class='list-group-item'>"+player_names[n_key]+"  赢"+chinese_hu+": "+total_points+"分</li>")
+                }else{
+                    $("#history").append("<li class='list-group-item'>"+player_names[n_key]+"  输"+chinese_hu+": "+total_points+"分</li>")
+                }
             });
             for (const key in overall_points) {
                 $("#"+key+"-score").text(overall_points[key])
