@@ -144,12 +144,14 @@ input, textarea {
 }
 .player-name{
     /* margin-top: ; */
+    display: block;
     font-size: 20px;
 }
 .player-score{
     margin-top: -20px;
+    margin-right: 60px;
     font-size: 20px;
-    display: flex;
+    display: block;
 }
 
 .fan-btn{
