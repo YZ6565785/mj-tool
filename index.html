@@ -4,6 +4,8 @@
 <head>
     <!-- for live debug -->
     <!-- <meta http-equiv="refresh" content="10" > -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <meta charset="utf-8">
 
     <title>Var Separator</title>
@@ -16,22 +18,18 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-
+    <div class="">
         <section id="title">
             <h1>麻将积分助手</h1>
         </section>
         
-        <div class="container-fluid" id="main">
-            <div class="row row-cols-5">
-                <span class="col"></span>
+        <div class="" id="main">
+            <div class="row row-cols-3">
                 <span class="col"></span>
                 <button class="col player btn" id="up" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
                     <i class="fas fa-user-circle"></i>
                     <p class="player-name" id="up-name">111</p>
                 </button>
-                <span class="col"></span>
-                <span class="col"></span>
                 <span class="col"></span>
                 <button class="col player btn" id="left" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
                     <i class="fas fa-user-circle"></i>
@@ -44,43 +42,36 @@
                     <p class="player-name" id="right-name">333</p>
                 </button>
                 <span class="col"></span>
-                <span class="col"></span>
-                <span class="col"></span>
                 <button class="col player btn" id="down" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
                     <i class="fas fa-user-circle"></i>
                     <p class="player-name" id="down-name">444</p>
                 </button>
                 <span class="col"></span>
-                <span class="col"></span>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" >
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Player Name:</label>
+                            <input type="text" class="form-control" id="player-name">
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btn-change-name" type="button" class="btn btn-primary" data-bs-dismiss="modal">Change Name</button>
+                    </div>
+                    </div>
+                </div>
             </div>
             
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" >
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Player Name:</label>
-                        <input type="text" class="form-control" id="player-name">
-                    </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btn-change-name" type="button" class="btn btn-primary" data-bs-dismiss="modal">Change Name</button>
-                </div>
-                </div>
-            </div>
-            </div>
         </div>
 
         
