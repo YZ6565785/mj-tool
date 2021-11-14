@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!-- for live debug -->
+    <!-- <meta http-equiv="refresh" content="10" > -->
+    <meta charset="utf-8">
+
+    <title>Var Separator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/965196d787.js" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <section id="title">
+            <h1>麻将积分助手</h1>
+        </section>
+        
+        <div class="container-fluid" id="main">
+            <div class="row row-cols-5">
+                <span class="col"></span>
+                <span class="col"></span>
+                <button class="col player btn" id="up" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
+                    <i class="fas fa-user-circle"></i>
+                    <p class="player-name" id="up-name">111</p>
+                </button>
+                <span class="col"></span>
+                <span class="col"></span>
+                <span class="col"></span>
+                <button class="col player btn" id="left" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
+                    <i class="fas fa-user-circle"></i>
+                    <p class="player-name" id="left-name">222</p>
+                </button>
+                <button class="col game-table btn" id="middle">
+                    <i class="fas fa-square"></i></button>
+                <button class="col player btn" id="right" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
+                    <i class="fas fa-user-circle"></i>
+                    <p class="player-name" id="right-name">333</p>
+                </button>
+                <span class="col"></span>
+                <span class="col"></span>
+                <span class="col"></span>
+                <button class="col player btn" id="down" data-bs-toggle="modal" data-bs-target="#exampleModal" seat="">
+                    <i class="fas fa-user-circle"></i>
+                    <p class="player-name" id="down-name">444</p>
+                </button>
+                <span class="col"></span>
+                <span class="col"></span>
+            </div>
+            
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Player Name:</label>
+                        <input type="text" class="form-control" id="player-name">
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btn-change-name" type="button" class="btn btn-primary" data-bs-dismiss="modal">Change Name</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        
+
+        <section id="footer">
+            Made by @ Victor Zhang 🤓 2021
+        </section>
+    </div>
+    <script type="text/javascript" src="https://livejs.com/live.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var number = 0
+        var fName = "favicon-animation/frame_0" + number + "_delay-0.05s.gif"
+
+        setInterval(function() {
+            if (number == 11) {
+                number = 0
+            }
+
+            var fName = "favicon-animation/frame_0" + number + "_delay-0.05s.gif"
+            $("link[rel='icon']").remove();
+            $("link[rel='shortcut icon']").remove();
+            $("head").append('<link rel="icon" href="' + fName + '" type="image/gif">');
+            number++
+        }, 1000);
+        player_names = {"up":"上","left":"左","right":"右","down":"下"}
+        selected_player = ""
+        new_name = ""
+
+        var exampleModal = document.getElementById('exampleModal')
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('seat')
+            var recipient = player_names[button.getAttribute("id")]
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalTitle = exampleModal.querySelector('.modal-title')
+            var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+            modalTitle.textContent = 'Change Name for ' + recipient
+            modalBodyInput.value = recipient
+            selected_player = $(button).attr("id")
+        })
+
+        
+
+
+        $(document).ready(function() {
+            wid = $(".player").width()
+            $(".player, .game-table").height(wid)
+            $(".player, .game-table").css({"font-size":wid*0.8})
+            $(".player-name").css({"padding":wid*0.1,})
+            
+            player_key_list = $(".player").map(function () {
+                return $(this).attr("id")
+            })
+            for (let i = 0; i < player_key_list.length; i++) {
+                n = player_names[player_key_list[i]]
+                $("#"+player_key_list[i]+"-name").text(n)
+                
+            }
+            
+            $(".player").click(function() {
+                // ################################################
+                // buttons for player icon
+                // ################################################
+                selected_player = $(this).attr("id")
+                new_name = ""
+                $("#player-name").val(new_name)
+                $("#player-name").focus()
+            })
+
+            $("#btn-change-name").click(function(){
+                if (selected_player!="") {
+                    player_names[selected_player] = $("#player-name").val()
+                    $("#"+selected_player+"-name").text(player_names[selected_player])
+                }
+            })
+
+            $("#player-name").change(function () {
+                player_key = $(this).attr("id")
+                new_name = $(this).val()
+            })
+            $("#player-name").click(function () {
+                $(this).select()
+            })
+
+
+        })
+    </script>
+</body>
+
+</html>
