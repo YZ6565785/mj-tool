@@ -144,8 +144,10 @@ input, textarea {
 }
 .player-name{
     /* margin-top: ; */
-    display: block;
+    margin-top: -20px;
+    margin-right: -60px;
     font-size: 20px;
+    display: block;
 }
 .player-score{
     margin-top: -20px;
