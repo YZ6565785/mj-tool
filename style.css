@@ -149,7 +149,7 @@ input, textarea {
 .player-score{
     margin-top: 0;
     font-size: 20px;
-    display: block;
+    display: flex;
 }
 
 .fan-btn{
