@@ -292,19 +292,21 @@
         targets_zhuang = ""
         
         player_names = {"up":"上","left":"左","right":"右","down":"下"}
-        // var names = localStorage.getItem('names');
-        // if (!(names===null)){
-        //     player_names = JSON.parse(names)
-        // }
+        var names = localStorage.getItem('names');
+        if (!(names===null)){
+            player_names = JSON.parse(names)
+            localStorage.setItem("names", JSON.stringify(player_names));
+        }
 
         history_record = {}
         for (const key in player_names) {
             history_record[key] = []
         }
-        // var array = localStorage.getItem('history');
-        // if (!(array===null)){
-        //     history_record = JSON.parse(array)
-        // }
+        var array = localStorage.getItem('history');
+        if (!(array===null)){
+            history_record = JSON.parse(array)
+            localStorage.setItem("history", JSON.stringify(history_record));
+        }
 
         var changeNameModal = document.getElementById('changeNameModal')
         changeNameModal.addEventListener('show.bs.modal', function (event) {
