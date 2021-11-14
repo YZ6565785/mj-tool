@@ -495,7 +495,7 @@
             wid = $(".player").width()
             $(".player, .game-table").height(wid)
             $(".player, .game-table").css({"font-size":wid*0.7})
-            $(".player-name").css({"padding":wid*0.1,})
+            $(".player-name").css({"padding":wid*0.2,})
             $(".hu-label, .fan-btn").css({"min-width":"100px"})
 
             
@@ -535,6 +535,10 @@
             })
             $("#delete-btn").click(function() {
                 deleteHistory()
+                overall_points = {"up":0,"left":0,"right":0,"down":0,}
+                for (const key in overall_points) {
+                $("#"+key+"-score").text(overall_points[key])
+            }
             })
             
             $(".player").click(function() {
