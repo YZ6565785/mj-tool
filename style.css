@@ -136,3 +136,11 @@ input, textarea {
 .fan-btn{
     /* max-width: 100px; */
 }
+
+.hu-check{
+    width: 2em;
+    height: 2em;
+}
+.hu-check-name{
+    margin-top: 0.5em;
+}

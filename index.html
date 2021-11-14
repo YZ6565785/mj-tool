@@ -4,7 +4,7 @@
 <head>
     <!-- for live debug -->
     <!-- <meta http-equiv="refresh" content="10" > -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 user-scalable=no" >
 
     <meta charset="utf-8">
 
@@ -90,24 +90,34 @@
                         <form class="container">
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check hu-check" id="hu" checked autocomplete="on">
-                                    <label class="btn btn-outline-primary hu-label" for="hu">Hu</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="hu" id="hu" checked>
+                                    <label class="form-check-label hu-check-name" for="hu">
+                                        小屁胡
+                                    </label>
                                 </div>
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check hu-check" id="ddh" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="ddh">DuiDuiHu</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="ddh" id="ddh">
+                                    <label class="form-check-label hu-check-name" for="ddh">
+                                        对对胡
+                                    </label>
                                 </div>
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check hu-check" id="qys" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="qys">QingYiSe</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="qys" id="qys">
+                                    <label class="form-check-label hu-check-name" for="qys">
+                                        清一色
+                                    </label>
                                 </div>
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check hu-check" id="ytl" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="ytl">YiTiaoLong</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="ytl" id="ytl">
+                                    <label class="form-check-label hu-check-name" for="ytl">
+                                        一条龙
+                                    </label>
                                 </div>
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check hu-check" id="qxd" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="qxd">QiXiaoDui</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="qxd" id="qxd">
+                                    <label class="form-check-label hu-check-name" for="qxd">
+                                        七小对
+                                    </label>
                                 </div>
                             </div>
                             <br />
@@ -124,8 +134,10 @@
 
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check zimo-check" id="zimo" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="zimo">ZiMo</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="zimo" id="zimo">
+                                    <label class="form-check-label hu-check-name" for="zimo">
+                                        自摸
+                                    </label>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col">加<span id="zimo-value">0</span>番</div>
@@ -134,8 +146,10 @@
 
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input type="checkbox" class="btn-check zhuang-check" id="zhuang" autocomplete="off">
-                                    <label class="btn btn-outline-primary hu-label" for="zhuang">Zhuang</label><br>
+                                    <input class="form-check-input hu-check" type="checkbox" name="zhuang" id="zhuang">
+                                    <label class="form-check-label hu-check-name" for="zhuang">
+                                        庄家
+                                    </label>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col">加<span id="zhuang-value">0</span>番</div>
