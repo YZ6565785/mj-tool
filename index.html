@@ -4,7 +4,7 @@
 <head>
     <!-- for live debug -->
     <!-- <meta http-equiv="refresh" content="10" > -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" >
 
     <meta charset="utf-8">
 
@@ -254,6 +254,23 @@
             $("#zhuang-value").text(zhuang_fan)
             setTotalFan()
         }
+
+        function resetAllFan() {
+            fan = 0
+            $("#fan-value").text(fan)
+            $(".hu-check").map(function(){
+                if ($(this).attr("id")!="hu"){
+                    $(this).prop("checked",false)
+                }else{
+                    $(this).prop("checked",true)
+                }
+            })
+            zimo_fan = 0
+            $("#zimo-value").text(zimo_fan)
+            zhuang_fan = 0
+            $("#zhuang-value").text(zhuang_fan)
+            setTotalFan()
+        }
         
         
 
@@ -306,14 +323,7 @@
                 // buttons for player icon
                 // ################################################
                 if ($(".player-icon").attr("class").includes("fa-user-circle")){
-                    setFan(0)
-                    $(".hu-check").map(function(){
-                        if ($(this).attr("id")!="hu"){
-                            $(this).prop("checked",false)
-                        }else{
-                            $(this).prop("checked",true)
-                        }
-                    })
+                    resetAllFan()
                 }else{
                     selected_player = $(this).attr("id")
                     new_name = ""
