@@ -102,6 +102,9 @@ input, textarea {
 
 #main, #footer {
     background-color: #eeeeee;
+    padding: 30px;
+}
+#footer{
     padding: 60px;
 }
 
@@ -109,6 +112,11 @@ input, textarea {
     /* margin: 55px 0 0 0; */
 }
 
+
+/* new */
+#edit-btn{
+    float: right;
+}
 .game-table{
     /* border: 1px solid #393e46; */
     line-height: 0;
@@ -122,6 +130,9 @@ input, textarea {
 }
 .player-name{
     /* margin-top: ; */
-    font-size: 10px;
+    font-size: 20px;
+}
 
+.fan-btn{
+    /* max-width: 100px; */
 }
