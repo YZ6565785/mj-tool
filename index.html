@@ -88,36 +88,48 @@
                     </div>
                     <div class="modal-body">
                         <form class="container">
+                            <div class="row">
+                                <div class="col col-3">
+                                    牌型：
+                                </div>
+                                <div class="col col-9" id="total-hu">
+                                    <span class="badge bg-danger" id="th-lb">天胡</span>
+                                    <span class="badge bg-warning" id="dh-lb">地胡</span>
+                                    <span class="badge bg-info" id="qxd-lb">七小对</span>
+                                    <span class="badge bg-info" id="ytl-lb">一条龙</span>
+                                    <span class="badge bg-info" id="qys-lb">清一色</span>
+                                    <span class="badge bg-success" id="ddh-lb">对对胡</span>
+                                    <span class="badge bg-secondary" id="hu-lb">小屁胡</span>
+                                </div>
+                            </div>
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="hu" id="hu" checked>
-                                    <label class="form-check-label hu-check-name" for="hu">
-                                        小屁胡
-                                    </label>
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="hu" id="hu" checked>
+                                    <label class="form-check-label record-check-name" for="hu">小屁胡</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="ddh" id="ddh">
-                                    <label class="form-check-label hu-check-name" for="ddh">
-                                        对对胡
-                                    </label>
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="ddh" id="ddh">
+                                    <label class="form-check-label record-check-name" for="ddh">对对胡</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="qys" id="qys">
-                                    <label class="form-check-label hu-check-name" for="qys">
-                                        清一色
-                                    </label>
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="qys" id="qys">
+                                    <label class="form-check-label record-check-name" for="qys">清一色</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="ytl" id="ytl">
-                                    <label class="form-check-label hu-check-name" for="ytl">
-                                        一条龙
-                                    </label>
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="ytl" id="ytl">
+                                    <label class="form-check-label record-check-name" for="ytl">一条龙</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="qxd" id="qxd">
-                                    <label class="form-check-label hu-check-name" for="qxd">
-                                        七小对
-                                    </label>
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="qxd" id="qxd">
+                                    <label class="form-check-label record-check-name" for="qxd">七小对</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="dh" id="dh">
+                                    <label class="form-check-label record-check-name" for="dh">地胡</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="th" id="th">
+                                    <label class="form-check-label record-check-name" for="th">天胡</label>
                                 </div>
                             </div>
                             <br />
@@ -131,28 +143,31 @@
                                 <div class="col">加<span id="fan-value">0</span>番</div>
                             </div>
                             <br />
-
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="zimo" id="zimo">
-                                    <label class="form-check-label hu-check-name" for="zimo">
-                                        自摸
-                                    </label>
+                                    <input class="form-check-input record-check" type="checkbox" name="zimo" id="zimo">
+                                    <label class="form-check-label record-check-name" for="zimo">自摸</label>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col">加<span id="zimo-value">0</span>番</div>
                             </div>
                             <br />
-
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input hu-check" type="checkbox" name="zhuang" id="zhuang">
-                                    <label class="form-check-label hu-check-name" for="zhuang">
-                                        庄家
-                                    </label>
+                                    <input class="form-check-input record-check" type="checkbox" name="zhuang" id="zhuang">
+                                    <label class="form-check-label record-check-name" for="zhuang">庄家</label>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col">加<span id="zhuang-value">0</span>番</div>
+                            </div>
+                            <br />
+                            <div class="row row-cols-3">
+                                <div class="col">
+                                    <input class="form-check-input record-check" type="checkbox" name="qyj" id="qyj">
+                                    <label class="form-check-label record-check-name" for="qyj">去幺九</label>
+                                </div>
+                                <div class="col"></div>
+                                <div class="col">加<span id="qyj-value">0</span>番</div>
                             </div>
                         </form>
                     </div>
@@ -200,6 +215,7 @@
         fan = 0
         zhuang_fan = 0
         zimo_fan = 0
+        qyj_fan = 0
         fan_rules = {
             "hu":1,
             "qys":4,
@@ -243,6 +259,13 @@
         function setTotalFan() {
             total_fan = fan+hu_fan+zimo_fan+zhuang_fan
             changeNameModal.querySelector('.modal-title').textContent = 'Record for ' + player_names[selected_player] + ", 合计：" + total_fan + "番"
+            $(".hu-check").map(function(){
+                if ($(this).prop("checked")){
+                    $("#"+$(this).attr("id")+"-lb").show()
+                }else{
+                    $("#"+$(this).attr("id")+"-lb").hide()
+                }
+            })
         }
 
         function setFan(v) {
@@ -266,6 +289,12 @@
         function setZhuangFan(v) {
             zhuang_fan = v
             $("#zhuang-value").text(zhuang_fan)
+            setTotalFan()
+        }
+
+        function setQyjFan(v) {
+            qyj_fan = v
+            $("#qyj-value").text(qyj_fan)
             setTotalFan()
         }
 
@@ -410,12 +439,10 @@
                 setZhuangFan(v)
             })
 
-            
-
-
-            
-
-
+            $("#qyj").on("input proportychange", function () {
+                v = ($(this).prop("checked"))?1:0
+                setQyjFan(v)
+            })
         })
     </script>
 </body>

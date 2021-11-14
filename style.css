@@ -137,10 +137,11 @@ input, textarea {
     /* max-width: 100px; */
 }
 
-.hu-check{
+.record-check{
     width: 2em;
     height: 2em;
+    float: left;
 }
-.hu-check-name{
+.record-check-name{
     margin-top: 0.5em;
 }
