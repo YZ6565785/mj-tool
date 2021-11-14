@@ -114,6 +114,12 @@ input, textarea {
 
 
 /* new */
+.secton-title{
+    float: left;
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.5em;
+}
 .content {
     background-color: #eeeeee;
     padding: 30px;
@@ -140,6 +146,11 @@ input, textarea {
     /* margin-top: ; */
     font-size: 20px;
 }
+.player-score{
+    margin-top: 0;
+    font-size: 20px;
+    display: block;
+}
 
 .fan-btn{
     /* max-width: 100px; */
@@ -152,4 +163,7 @@ input, textarea {
 }
 .record-check-name{
     margin-top: 0.5em;
+}
+.target-zhuang-check{
+    display: flex;
 }

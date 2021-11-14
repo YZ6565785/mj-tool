@@ -39,22 +39,26 @@
                 <button class="col player btn" id="up" data-bs-toggle="modal" data-bs-target="#recordModal" seat="">
                     <i class="fas fa-user-circle player-icon"></i>
                     <p class="player-name" id="up-name">111</p>
+                    <p class="player-score" id="up-score">111</p>
                 </button>
                 <span class="col"></span>
                 <button class="col player btn" id="left" data-bs-toggle="modal" data-bs-target="#recordModal" seat="">
                     <i class="fas fa-user-circle player-icon"></i>
                     <p class="player-name" id="left-name">222</p>
+                    <p class="player-score" id="left-score">222</p>
                 </button>
                 <button class="col game-table btn" id="middle">
                     <i class="fas fa-square"></i></button>
                 <button class="col player btn" id="right" data-bs-toggle="modal" data-bs-target="#recordModal" seat="">
                     <i class="fas fa-user-circle player-icon"></i>
                     <p class="player-name" id="right-name">333</p>
+                    <p class="player-score" id="right-score">333</p>
                 </button>
                 <span class="col"></span>
                 <button class="col player btn" id="down" data-bs-toggle="modal" data-bs-target="#recordModal" seat="">
                     <i class="fas fa-user-circle player-icon"></i>
                     <p class="player-name" id="down-name">444</p>
+                    <p class="player-score" id="down-score">444</p>
                 </button>
                 <span class="col"></span>
             </div>
@@ -91,49 +95,68 @@
                     <div class="modal-body">
                         <form class="container">
                             <div class="row">
-                                <div class="col col-3">
-                                    牌型：
-                                </div>
-                                <div class="col col-9" id="total-hu">
+                                <span class="secton-title">牌型:</span>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12" id="total-hu">
                                     <span class="badge bg-danger" id="th-lb">天胡</span>
                                     <span class="badge bg-warning" id="dh-lb">地胡</span>
                                     <span class="badge bg-info" id="qxd-lb">七小对</span>
                                     <span class="badge bg-info" id="ytl-lb">一条龙</span>
                                     <span class="badge bg-info" id="qys-lb">清一色</span>
                                     <span class="badge bg-success" id="ddh-lb">对对胡</span>
-                                    <span class="badge bg-success" id="hu-lb">小屁胡</span>
+                                    <span class="badge bg-secondary" id="hu-lb">小屁胡</span>
                                     <span class="badge bg-dark" id="zimo-lb">自摸</span>
                                     <span class="badge bg-dark" id="zhuang-lb">庄家</span>
                                     <span class="badge bg-dark" id="qyj-lb">去幺九</span>
                                 </div>
                             </div>
+                            <div class="row">
+                                <span class="col secton-title">胡谁？</span>
+                            </div>
+                            <div class="row">
+                                    <div class="col">
+                                        <input class="form-check-input target-check record-check" type="checkbox" name="t1" id="t1">
+                                        <label class="form-check-label target-name" for="t1" id="t1-name">P1</label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-check-input target-check record-check" type="checkbox" name="t2" id="t2">
+                                        <label class="form-check-label target-name" for="t2" id="t2-name">P2</label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-check-input target-check record-check" type="checkbox" name="t3" id="t3">
+                                        <label class="form-check-label target-name" for="t3" id="t3-name">P3</label>
+                                    </div>
+                            </div>
+                            </form>
+                            <br>
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="hu" id="hu" checked>
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="hu" id="hu" checked>
                                     <label class="form-check-label record-check-name" for="hu">小屁胡</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="ddh" id="ddh">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="ddh" id="ddh">
                                     <label class="form-check-label record-check-name" for="ddh">对对胡</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="qys" id="qys">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="qys" id="qys">
                                     <label class="form-check-label record-check-name" for="qys">清一色</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="ytl" id="ytl">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="ytl" id="ytl">
                                     <label class="form-check-label record-check-name" for="ytl">一条龙</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="qxd" id="qxd">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="qxd" id="qxd">
                                     <label class="form-check-label record-check-name" for="qxd">七小对</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="dh" id="dh">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="dh" id="dh">
                                     <label class="form-check-label record-check-name" for="dh">地胡</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input hu-check record-check" type="checkbox" name="th" id="th">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="th" id="th">
                                     <label class="form-check-label record-check-name" for="th">天胡</label>
                                 </div>
                             </div>
@@ -160,10 +183,30 @@
                             <div class="row row-cols-3">
                                 <div class="col">
                                     <input class="form-check-input hu-check record-check" type="checkbox" name="zhuang" id="zhuang">
-                                    <label class="form-check-label record-check-name" for="zhuang">庄家</label>
+                                    <label class="form-check-label record-check-name" for="zhuang">我是庄家</label>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col">加<span id="zhuang-value">0</span>番</div>
+                            </div>
+                            <div class="row">
+                                    
+                                    
+                                <div class="col">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <label class="form-check-label zhuang-name" for="z">
+                                      Default radio
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <label class="form-check-label zhuang-name" for="z">
+                                      Default checked radio
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <label class="form-check-label zhuang-name" for="z">P3</label>
+                                </div>
                             </div>
                             <br />
                             <div class="row row-cols-3">
@@ -188,7 +231,6 @@
         <div class="content"><h2>History:</h2></div>
         <ul class="list-group list-group-flush" id="history">
           </ul>
-
         <section id="footer">
             Made by @ Victor Zhang 🤓 2021
         </section>
@@ -247,6 +289,8 @@
             "qyj":"去幺九",
         }
         record = ""
+        targets = ""
+        targets_zhuang = ""
 
         var names = localStorage.getItem('names');
         
@@ -299,10 +343,20 @@
             record = ""
             $(".hu-check").map(function(){
                 if ($(this).prop("checked")){
+                    // if i am zhuang, no need to choose others
+                    if($(this).attr("id")=="zhuang") {
+                        $(".zhuang-check").hide()
+                        $(".zhuang-check").prop("checked",false)
+                        $(".zhuang-name").hide()
+                    }
                     $("#"+$(this).attr("id")+"-lb").show()
                     record+=$(this).attr("id")+","
                     total_fan+=fan_rules[$(this).attr("id")]
                 }else{
+                    if($(this).attr("id")=="zhuang") {
+                        $(".zhuang-check").show()
+                        $(".zhuang-name").show()
+                    }
                     $("#"+$(this).attr("id")+"-lb").hide()
                 }
             })
@@ -362,7 +416,12 @@
 
         function saveRecord() {
             if (record!="") {
-                history_record[selected_player].push(selected_player+":"+Date.now()+":"+record)
+                targets.split(",").forEach(each => {
+                    if (each!="") {
+                        history_record[selected_player].push(each+":"+Date.now()+":"+record+":"+selected_player+":"+"-")
+                    }
+                });
+                history_record[selected_player].push(selected_player+":"+Date.now()+":"+record+":"+targets+":"+"+")
                 localStorage.setItem("history", JSON.stringify(history_record));
             }else{
                 localStorage.setItem("history", JSON.stringify(history_record));
@@ -384,18 +443,46 @@
             }
             all_record.sort(function(a, b){return parseInt(b.split(":")[1])-parseInt(a.split(":")[1])});
             $("#history").empty()
+
+            overall_points = {"up":0,"left":0,"right":0,"down":0,}
             all_record.forEach(each => {
-                total = 0
+                total_points = 0
                 chinese_hu = ""
+                
+                total = 0
                 each.split(":")[2].split(",").forEach(each => {
                     if (each!="") {
                         total+=fan_rules[each]
-                        console.log(each,id2chinese[each],fan_rules[each]);
                         chinese_hu+=id2chinese[each]+" "
                     }
                 });
-                $("#history").append("<li class='list-group-item'>"+player_names[each.split(":")[0]]+"  "+chinese_hu+": "+total+"分</li>")
+                
+                n_key = each.split(":")[0]
+                if(each.split(":")[4]=="-"){ // if loose
+                    if(each.split(":")[0].slice(-1)=="*"){
+                        total_points = -(2*total)
+                        n_key = each.split(":")[0].slice(0,-1)
+                    }
+                    else total_points = -total
+                    
+                } else{ // if win
+                    each.split(":")[3].split(",").forEach(each => {
+                        if (each!="") {
+                            if (each.slice(-1)=="*"){
+                                total_points+=(total+1)
+                            }else{
+                                total_points+=total
+                            }
+                        }
+                    });
+                }
+                console.log(n_key);
+                overall_points[n_key]+=total_points
+                $("#history").append("<li class='list-group-item'>"+player_names[n_key]+"  "+chinese_hu+": "+total_points+"分</li>")
             });
+            for (const key in overall_points) {
+                $("#"+key+"-score").text(overall_points[key])
+            }
         }
         showHistory()
         
@@ -405,7 +492,7 @@
             wid = $(".player").width()
             $(".player, .game-table").height(wid)
             $(".player, .game-table").css({"font-size":wid*0.8})
-            $(".player-name").css({"padding":wid*0.2,})
+            $(".player-name").css({"padding":wid*0.1,})
             $(".hu-label, .fan-btn").css({"min-width":"100px"})
 
             
@@ -451,10 +538,23 @@
                 // ################################################
                 // buttons for player icon
                 // ################################################
+                selected_player = $(this).attr("id")
+                
                 if ($(".player-icon").attr("class").includes("fa-user-circle")){
                     resetAllFan()
+                    ind = 0
+                    zhuang_names = $(".zhuang-name")
+                    for (const key in player_names) {
+                        if (key!=selected_player) {
+                            $("#t"+(ind+1)).attr("name",key)
+                            $(".target-name").eq(ind).text(player_names[key])
+                            $("#z"+(ind+1)).attr("name",key)
+                            $(".zhuang-check").eq(ind).attr("key",key)
+                            $(".zhuang-name").eq(ind).text(player_names[key])
+                            ind++
+                        }
+                    }
                 }else{
-                    selected_player = $(this).attr("id")
                     new_name = ""
                     $("#player-name").val(new_name)
                     $("#player-name").focus()
@@ -486,7 +586,7 @@
 
             $(".hu-check").on("input proportychange", function () {
                 hu_checked = $(".hu-check, #hu").prop("checked")
-                bigger_hu_checked = $(this).attr("id")!="hu"
+                bigger_hu_checked = $(this).attr("id")!="hu" && $(this).hasClass("hu-type")
                 
                 if (hu_checked && $(this).attr("id")=="hu"){
                     $(".hu-check").map(function(){
@@ -505,6 +605,26 @@
                     }
                 }).get()
                 setHuFan(hu_list)
+            })
+            // select target player
+            $(".target-check").on("input proportychange", function () {
+                targets = $(".target-check").map(function(){
+                    if ($(this).prop("checked")){
+                        return $(this).attr("name")
+                    }
+                }).get().toString()
+            })
+            // select target zhuang player
+            $(".zhuang-check").on("input proportychange", function () {
+                targets_zhuang = $(this).attr("key")
+                targets = $(".target-check").map(function(){
+                    console.log($(this).attr("name"));
+                    if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
+                        return $(this).attr("name")+"*"
+                    }else if($(this).prop("checked")){
+                        return $(this).attr("name")
+                    }
+                }).get().toString()
             })
 
             $(".fan-btn").click(function () {
