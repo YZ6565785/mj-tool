@@ -254,10 +254,9 @@
             $("head").append('<link rel="icon" href="' + fName + '" type="image/gif">');
             number++
         }, 1000);
-        player_names = {"up":"上","left":"左","right":"右","down":"下"}
         selected_player = ""
         new_name = ""
-
+        
         total_fan = 0
         hu_fan = 1
         fan = 0
@@ -291,21 +290,21 @@
         record = ""
         targets = ""
         targets_zhuang = ""
-
-        var names = localStorage.getItem('names');
         
-        if (!(names===null)){
-            player_names = JSON.parse(names)
-        }
+        player_names = {"up":"上","left":"左","right":"右","down":"下"}
+        // var names = localStorage.getItem('names');
+        // if (!(names===null)){
+        //     player_names = JSON.parse(names)
+        // }
 
         history_record = {}
         for (const key in player_names) {
             history_record[key] = []
         }
-        var array = localStorage.getItem('history');
-        if (!(array===null)){
-            history_record = JSON.parse(array)
-        }
+        // var array = localStorage.getItem('history');
+        // if (!(array===null)){
+        //     history_record = JSON.parse(array)
+        // }
 
         var changeNameModal = document.getElementById('changeNameModal')
         changeNameModal.addEventListener('show.bs.modal', function (event) {
@@ -339,7 +338,7 @@
         
         function setTotalFan() {
             // total_fan = fan+hu_fan+zimo_fan+zhuang_fan
-            total_fan = 0
+            total_fan = fan
             record = ""
             $(".hu-check").map(function(){
                 if ($(this).prop("checked")){
