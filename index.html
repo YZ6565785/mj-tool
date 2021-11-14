@@ -26,7 +26,9 @@
         <div class="container" id="main">
             <!-- setting buttons -->
             <div class="row row-cols-2">
-                <div class="col"></div>
+                <div class="col">
+                    <button class="btn btn-danger mr-auto" id="delete-btn">删除记录</button>
+                </div>
                 <div class="col">
                     <button class="btn btn-dark mr-auto" id="edit-btn">编辑玩家</button>
                 </div>
@@ -99,7 +101,10 @@
                                     <span class="badge bg-info" id="ytl-lb">一条龙</span>
                                     <span class="badge bg-info" id="qys-lb">清一色</span>
                                     <span class="badge bg-success" id="ddh-lb">对对胡</span>
-                                    <span class="badge bg-secondary" id="hu-lb">小屁胡</span>
+                                    <span class="badge bg-success" id="hu-lb">小屁胡</span>
+                                    <span class="badge bg-dark" id="zimo-lb">自摸</span>
+                                    <span class="badge bg-dark" id="zhuang-lb">庄家</span>
+                                    <span class="badge bg-dark" id="qyj-lb">去幺九</span>
                                 </div>
                             </div>
                             <div class="row row-cols-3">
@@ -135,17 +140,17 @@
                             <br />
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <button class="btn btn-secondary fan-btn" name="minus-fan" type="button">Minus</button>
+                                    <button class="btn btn-secondary fan-btn" name="minus-fan" type="button">减一杠</button>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-secondary fan-btn" name="plus-fan" type="button">Plus</button>
+                                    <button class="btn btn-secondary fan-btn" name="plus-fan" type="button">加一杠</button>
                                 </div>
-                                <div class="col">加<span id="fan-value">0</span>番</div>
+                                <div class="col">共<span id="fan-value">0</span>杠</div>
                             </div>
                             <br />
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input record-check" type="checkbox" name="zimo" id="zimo">
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="zimo" id="zimo">
                                     <label class="form-check-label record-check-name" for="zimo">自摸</label>
                                 </div>
                                 <div class="col"></div>
@@ -154,7 +159,7 @@
                             <br />
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input record-check" type="checkbox" name="zhuang" id="zhuang">
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="zhuang" id="zhuang">
                                     <label class="form-check-label record-check-name" for="zhuang">庄家</label>
                                 </div>
                                 <div class="col"></div>
@@ -163,7 +168,7 @@
                             <br />
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <input class="form-check-input record-check" type="checkbox" name="qyj" id="qyj">
+                                    <input class="form-check-input hu-check record-check" type="checkbox" name="qyj" id="qyj">
                                     <label class="form-check-label record-check-name" for="qyj">去幺九</label>
                                 </div>
                                 <div class="col"></div>
@@ -172,16 +177,17 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                        <!-- <button id="btn-change-name" type="button" class="btn btn-primary" data-bs-dismiss="modal">Change Name</button> -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btn-record" type="button" class="btn btn-primary" data-bs-dismiss="modal">记分</button>
                     </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
-        
+        <div class="content"><h2>History:</h2></div>
+        <ul class="list-group list-group-flush" id="history">
+          </ul>
 
         <section id="footer">
             Made by @ Victor Zhang 🤓 2021
@@ -224,6 +230,37 @@
             "qxd":4,
             "dh":5,
             "th":6,
+            "zimo":1,
+            "zhuang":1,
+            "qyj":1,
+        }
+        id2chinese = {
+            "th":"天胡",
+            "dh":"地胡",
+            "qxd":"七小对",
+            "ytl":"一条龙",
+            "qys":"清一色",
+            "ddh":"对对胡",
+            "hu":"小屁胡",
+            "zimo":"自摸",
+            "zhuang":"庄家",
+            "qyj":"去幺九",
+        }
+        record = ""
+
+        var names = localStorage.getItem('names');
+        
+        if (!(names===null)){
+            player_names = JSON.parse(names)
+        }
+
+        history_record = {}
+        for (const key in player_names) {
+            history_record[key] = []
+        }
+        var array = localStorage.getItem('history');
+        if (!(array===null)){
+            history_record = JSON.parse(array)
         }
 
         var changeNameModal = document.getElementById('changeNameModal')
@@ -256,18 +293,20 @@
         })
 
         
-        
-        
         function setTotalFan() {
-            total_fan = fan+hu_fan+zimo_fan+zhuang_fan
-            changeNameModal.querySelector('.modal-title').textContent = 'Record for ' + player_names[selected_player] + ", 合计：" + total_fan + "番"
+            // total_fan = fan+hu_fan+zimo_fan+zhuang_fan
+            total_fan = 0
+            record = ""
             $(".hu-check").map(function(){
                 if ($(this).prop("checked")){
                     $("#"+$(this).attr("id")+"-lb").show()
+                    record+=$(this).attr("id")+","
+                    total_fan+=fan_rules[$(this).attr("id")]
                 }else{
                     $("#"+$(this).attr("id")+"-lb").hide()
                 }
             })
+            changeNameModal.querySelector('.modal-title').textContent = 'Record for ' + player_names[selected_player] + ", 合计：" + total_fan + "番"
         }
 
         function setFan(v) {
@@ -316,6 +355,49 @@
             $("#zhuang-value").text(zhuang_fan)
             setTotalFan()
         }
+
+        function saveNames() {
+            localStorage.setItem("names", JSON.stringify(player_names));
+        }
+
+        function saveRecord() {
+            if (record!="") {
+                history_record[selected_player].push(selected_player+":"+Date.now()+":"+record)
+                localStorage.setItem("history", JSON.stringify(history_record));
+            }else{
+                localStorage.setItem("history", JSON.stringify(history_record));
+            }
+        }
+        function deleteHistory() {
+            history_record={}
+            for (const key in player_names) {
+                history_record[key] = []
+            }
+            saveRecord()
+            $("#history").empty()
+        }
+        function showHistory() {
+            // <li class="list-group-item">An item</li>
+            all_record = []
+            for (const key in history_record) {
+                all_record = all_record.concat(history_record[key])
+            }
+            all_record.sort(function(a, b){return parseInt(b.split(":")[1])-parseInt(a.split(":")[1])});
+            $("#history").empty()
+            all_record.forEach(each => {
+                total = 0
+                chinese_hu = ""
+                each.split(":")[2].split(",").forEach(each => {
+                    if (each!="") {
+                        total+=fan_rules[each]
+                        console.log(each,id2chinese[each],fan_rules[each]);
+                        chinese_hu+=id2chinese[each]+" "
+                    }
+                });
+                $("#history").append("<li class='list-group-item'>"+player_names[each.split(":")[0]]+"  "+chinese_hu+": "+total+"分</li>")
+            });
+        }
+        showHistory()
         
         
 
@@ -341,7 +423,6 @@
                 // buttons for player icon
                 // ################################################
                 class_str = $(".player-icon").attr("class")
-                console.log(class_str.includes("fa-user-circle"));
                 // go to edit mode
                 if (class_str.includes("fa-user-circle")){
                     $(".player-icon").removeClass("fa-user-circle")
@@ -362,6 +443,9 @@
                     // $(".player").attr("data-bs-target","#changeNameModal")
                 }
             })
+            $("#delete-btn").click(function() {
+                deleteHistory()
+            })
             
             $(".player").click(function() {
                 // ################################################
@@ -381,6 +465,14 @@
                 if (selected_player!="") {
                     player_names[selected_player] = $("#player-name").val()
                     $("#"+selected_player+"-name").text(player_names[selected_player])
+                    saveNames()
+                }
+            })
+            $("#btn-record").click(function(){
+                if (selected_player!="") {
+                    saveRecord()
+                    showHistory()
+
                 }
             })
 
@@ -395,9 +487,6 @@
             $(".hu-check").on("input proportychange", function () {
                 hu_checked = $(".hu-check, #hu").prop("checked")
                 bigger_hu_checked = $(this).attr("id")!="hu"
-                
-                console.log(hu_checked);
-                console.log(bigger_hu_checked);
                 
                 if (hu_checked && $(this).attr("id")=="hu"){
                     $(".hu-check").map(function(){
@@ -415,17 +504,14 @@
                         return $(this).attr("id")
                     }
                 }).get()
-                console.log(hu_list);
                 setHuFan(hu_list)
             })
 
             $(".fan-btn").click(function () {
                 if ($(this).attr("name")=="minus-fan"){
-                    console.log("-");
                     fan--
                     if (fan<0) fan=0
                 }else{
-                    console.log("+");
                     fan++
                 }
                 setFan(fan)

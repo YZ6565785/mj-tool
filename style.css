@@ -114,8 +114,16 @@ input, textarea {
 
 
 /* new */
+.content {
+    background-color: #eeeeee;
+    padding: 30px;
+}
+
 #edit-btn{
     float: right;
+}
+#delete-btn{
+    float: left;
 }
 .game-table{
     /* border: 1px solid #393e46; */
@@ -125,7 +133,7 @@ input, textarea {
 .player{
     /* border: 1px solid #393e46; */
     line-height: 0;
-    border-radius: 100%;
+    /* border-radius: 100%; */
 
 }
 .player-name{
