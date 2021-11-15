@@ -126,7 +126,6 @@ input, textarea {
 .content {
     background-color: #eeeeee;
     padding: 30px;
-    overflow-x: hidden;
 }
 
 #edit-btn{

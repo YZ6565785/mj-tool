@@ -1,7 +1,0 @@
-.swipe-container {padding:0;overflow:hidden;}
-.swipe-btn {width:15%;height:100%;background:#ddd;position:absolute;top:0;right:0;}
-.swipe-left {right:15%;background:#ccc;}
-
-.swap-item {position:relative;width:100%;background:white;transition:all .5s ease-in-out;z-index:2}
-.swap-item div {padding:12px 20px;}
-.swap-open {margin-left:-30%;margin-right:30%;}
