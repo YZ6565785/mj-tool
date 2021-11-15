@@ -45,16 +45,17 @@ function showHistory(history_record,fan_rules,id2chinese) {
         // pow = (Math.abs(total_points)-1<0)?0:Math.abs(total_points)-1
         overall_points[n_key]+=total_points
 
-        
         game_result = ""
         if (total_points>0){
-            game_result = "赢"
+            game_result = "up"
+            info_color = "#1F6650"
         }else{
-            game_result = "输"
+            game_result = "down"
+            info_color = "#EA5E5E"
         }
         new_list = "<li class='list-group-item d-flex justify-content-end swipe-container'>\
             <div class='swap-item d-flex'>\
-                <div class='swipe-heure'>"+player_names[n_key]+" "+game_result+"</div>\
+                <div class='swipe-heure' style='color:"+info_color+"'>"+player_names[n_key]+" <i class='fas fa-thumbs-"+game_result+"'></i></div>\
                 <div class='swipe-text flex-grow-1'>"+chinese_hu+": "+total_points+"分</div>\
                 <div class='swipe-menu'><i class='fa fa-lg fa-ellipsis-v'></i></div>\
             </div>\
