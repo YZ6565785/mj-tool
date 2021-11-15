@@ -45,6 +45,23 @@ gang_left = ""
 gang_right = []
 zhuang = ""
 
+
+function resetAllFan() {
+    $("#fan-value").text(fan)
+
+    $(".record-check").prop("checked",false)
+    
+    $(".hu-check").map(function(){
+        if ($(this).attr("id")!="hu"){
+            $(this).prop("checked",false)
+        }else{
+            $(this).prop("checked",true)
+        }
+    })
+    $("#zimo-value").text(zimo_fan)
+    $("#zhuang-value").text(zhuang_fan)
+    setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
+}
 function doneAndClear() {
     selected_player = ""
     new_name = ""
@@ -61,6 +78,8 @@ function doneAndClear() {
     gang_left = ""
     gang_right = []
     zhuang = ""
+
+    resetAllFan()
 }
 
 ///////////////////////////////////////////
@@ -113,28 +132,12 @@ function setQyjFan(v) {
     $("#qyj-value").text(qyj_fan)
 }
 
-function resetAllFan() {
-    fan = 0
-    $("#fan-value").text(fan)
-    $(".hu-check").map(function(){
-        if ($(this).attr("id")!="hu"){
-            $(this).prop("checked",false)
-        }else{
-            $(this).prop("checked",true)
-        }
-    })
-    zimo_fan = 0
-    $("#zimo-value").text(zimo_fan)
-    zhuang_fan = 0
-    $("#zhuang-value").text(zhuang_fan)
-    setTotalFan()
-}
+
 
 function setTotalFan(recordModal, player_names, fan_rules, selected_player, fan) {
     total_fan = fan
     record = ""
     $(".hu-check").map(function(){
-        
         if ($(this).prop("checked")){
             // if i am zhuang, no need to choose others
             if($(this).attr("id")=="zhuang") {
