@@ -138,7 +138,13 @@ input, textarea {
     /* border: 1px solid #393e46; */
     line-height: 0;
 }
-
+#middle-name{
+    position: relative;
+    color:white;
+    left:0;
+    font-size: 0.8em;
+    bottom:0.72em;
+}
 .player{
     /* border: 1px solid #393e46; */
     line-height: 0;
@@ -146,20 +152,19 @@ input, textarea {
 
 }
 .player-name{
-    /* margin-top: ; */
-    /* margin-top: -20px; */
-    /* margin-right: -60px; */
-    
-    margin-bottom: 8px;
-    margin-right: 80px;
-    font-size: 15px;
-    display: block;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    display: flex;
+    width: 300%;
+    float: left;
+
 }
 .player-score{
     margin-bottom: 15px;
-    margin-right: 80px;
-    font-size: 15px;
-    display: block;
+    font-size: 1rem;
+    display: flex;
+    width: 300%;
+    float: left;
 }
 
 .fan-btn{

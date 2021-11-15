@@ -1,19 +1,14 @@
 
 function showHistory(history_record,fan_rules,id2chinese) {
-    // <li class="list-group-item">An item</li>
-    all_record = []
-    for (const key in history_record) {
-        all_record = all_record.concat(history_record[key])
-    }
-    all_record.sort(function(a, b){return parseInt(b.split(":")[1])-parseInt(a.split(":")[1])});
+    history_record.sort(function(a, b){return parseInt(b.split(":")[1])-parseInt(a.split(":")[1])});
     $("#history").empty()
 
     overall_points = {"up":0,"left":0,"right":0,"down":0,}
-    all_record.forEach(each => {
+    history_record.forEach(each => {
         total_points = 0
-        chinese_hu = ""
         fields = each.split(":")
-
+        
+        chinese_hu = ""
         total = parseInt(fields[5])
         
         fields[2].split(",").forEach(each => {
@@ -42,8 +37,13 @@ function showHistory(history_record,fan_rules,id2chinese) {
                 }
             });
         }
-        // pow = (Math.abs(total_points)-1<0)?0:Math.abs(total_points)-1
         overall_points[n_key]+=total_points
+        
+
+        if (parseInt(fields[5])>0) chinese_hu+="加"+parseInt(fields[5])+"杠 "
+        
+        if (fields[4]=="-") chinese_hu+="共"+(Math.log2(Math.abs(total_points))+1)+"番"
+
 
         game_result = ""
         if (total_points>0){
@@ -76,22 +76,17 @@ function saveNames(player_name) {
 
 
 function deleteHistory(player_names) {
-    history_record={}
-    for (const key in player_names) {
-        history_record[key] = []
-    }
+    history_record=[]
     $("#history").empty()
 }
 
 function deleteOneHistoryByTime(history_record,t) {
-    for (const key in history_record) {
-        for (let i = 0; i < history_record[key].length; i++) {
-            element = history_record[key][i];
-            time = element.split(":")[1]
-            if (time==t){
-                history_record[key].splice(i,1)
-                i--
-            }
+    for (let i = 0; i < history_record.length; i++) {
+        element = history_record[i];
+        time = element.split(":")[1]
+        if (time==t){
+            history_record.splice(i,1)
+            i--
         }
     }
 }
