@@ -123,7 +123,7 @@
                                     <span class="badge bg-dark" id="zimo-lb">自摸</span>
                                     <span class="badge bg-dark" id="zhuang-lb">庄家</span>
                                     <span class="badge bg-dark" id="qyj-lb">去幺九</span>
-                                    <span class="badge bg-danger" id="zhuang-lb"></span>
+                                    <span class="badge bg-danger" id="target-zhuang-lb"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -206,19 +206,19 @@
                                     
                                     
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">
                                       Default radio
                                     </label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">
                                       Default checked radio
                                     </label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">P3</label>
                                 </div>
                             </div>
@@ -332,12 +332,14 @@
             
             // select target zhuang player
             $(".zhuang-check").on("input proportychange", function () {
+                $("#target-zhuang-lb").text("")
+                $("#target-zhuang-lb").hide()
                 targets_zhuang = $(this).attr("key")
                 targets = $(".target-check").map(function(){
                     console.log($(this).attr("name"));
                     if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
-                        $("#zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
-                        $("#zhuang-lb").show()
+                        $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
+                        $("#target-zhuang-lb").show()
                         return $(this).attr("name")+"*"
                     }else if($(this).prop("checked")){
                         return $(this).attr("name")

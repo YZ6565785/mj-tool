@@ -214,8 +214,10 @@ $(document).ready(function() {
         $("#alertModal").removeClass("show")
         $("#alertModal").css({"display":"none"})
     })
+
+    
     // record a hu
-    $(".hu-check").on("input proportychange", function () {
+    $(".hu-check, .zhuang-check").on("input proportychange", function () {
         if (targets==""){
             $("#alertModal").addClass("show")
             $("#alertModal").css({"display":"block"})
@@ -261,6 +263,10 @@ $(document).ready(function() {
 
     $("#zhuang").on("input proportychange", function () {
         v = ($(this).prop("checked"))?1:0
+        if (v==1){
+            $("#target-zhuang-lb").text("")
+            $("#target-zhuang-lb").hide()
+        }
         setZhuangFan(v)
         setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
     })
@@ -297,8 +303,21 @@ $(document).ready(function() {
         }
         // select target player
         $(".target-check").on("input proportychange", function () {
+            $("#target-zhuang-lb").text("")
+            $("#target-zhuang-lb").hide()
+            $(".zhuang-check").map(function () {
+                console.log($(this).attr("key"));
+                if ($(this).prop("checked")) {
+                    targets_zhuang = $(this).attr("key")
+                }
+            })
+            
             targets = $(".target-check").map(function(){
-                if ($(this).prop("checked")){
+                if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
+                    $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
+                    $("#target-zhuang-lb").show()
+                    return $(this).attr("name")+"*"
+                }else if($(this).prop("checked")){
                     return $(this).attr("name")
                 }
             }).get().toString()
