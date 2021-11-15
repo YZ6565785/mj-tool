@@ -406,3 +406,70 @@ $(document).ready(function() {
         })
     })
 });
+
+$(document).ready(function() {
+    wid = $(".player").width()
+    $(".player, .game-table").height(wid)
+    $(".player, .game-table").css({"font-size":wid*0.7})
+    // $(".player-name").css({"padding":wid*0.2,})
+    $(".hu-label, .fan-btn").css({"min-width":"100px"})
+
+    player_key_list = $(".player").map(function () {
+        return $(this).attr("id")
+    })
+    for (let i = 0; i < player_key_list.length; i++) {
+        n = player_names[player_key_list[i]]
+        $("#"+player_key_list[i]+"-name").text(n)
+    }
+
+    $("#edit-btn").click(function() {
+        // ################################################
+        // buttons for player icon
+        // ################################################
+        class_str = $(".player-icon").attr("class")
+        // go to edit mode
+        if (class_str.includes("fa-user-circle")){
+            $(".player-icon").removeClass("fa-user-circle")
+            $(".player-icon").addClass("fa-user-edit")
+            $("#edit-btn").text("完成")
+            $(".player").css({"color":"#E59934"})
+            $(".player").map(function () {
+                $(this).attr("data-bs-target","#changeNameModal")
+            })
+        }else{ // go back to normal mode
+            $(".player-icon").removeClass("fa-user-edit")
+            $(".player-icon").addClass("fa-user-circle")
+            $("#edit-btn").text("编辑玩家")
+            $(".player").css({"color":"black"})
+            $(".player").map(function () {
+                $(this).attr("data-bs-target","#recordModal")
+            })
+            // $(".player").attr("data-bs-target","#changeNameModal")
+        }
+    })
+
+    $("#player-name").change(function () {
+        player_key = $(this).attr("id")
+        new_name = $(this).val()
+    })
+    $("#player-name").click(function () {
+        $(this).select()
+    })
+    
+    // select target zhuang player
+    $(".zhuang-check").on("input proportychange", function () {
+        $("#target-zhuang-lb").text("")
+        $("#target-zhuang-lb").hide()
+        targets_zhuang = $(this).attr("key")
+        targets = $(".target-check").map(function(){
+            console.log($(this).attr("name"));
+            if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
+                $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
+                $("#target-zhuang-lb").show()
+                return $(this).attr("name")+"*"
+            }else if($(this).prop("checked")){
+                return $(this).attr("name")
+            }
+        }).get().toString()
+    })
+})
