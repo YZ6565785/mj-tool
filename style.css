@@ -173,6 +173,7 @@ input, textarea {
 }
 .record-check-name{
     margin-top: 0.5em;
+    float: left;
 }
 .target-zhuang-check{
     display: flex;

@@ -99,6 +99,7 @@ function setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
     total_fan = fan
     record = ""
     $(".hu-check").map(function(){
+        
         if ($(this).prop("checked")){
             // if i am zhuang, no need to choose others
             if($(this).attr("id")=="zhuang") {
@@ -118,6 +119,7 @@ function setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
         }
         $("#zhuang-lb").text("")
         $("#zhuang-lb").hide()
+        
     })
     recordModal.querySelector('.modal-title').textContent = 'Record for ' + player_names[selected_player] + ", 合计：" + total_fan + "番"
 }
@@ -208,8 +210,16 @@ $(document).ready(function() {
         }
     })
 
+    $(".alert-close").click(function () {
+        $("#alertModal").removeClass("show")
+        $("#alertModal").css({"display":"none"})
+    })
     // record a hu
     $(".hu-check").on("input proportychange", function () {
+        if (targets==""){
+            $("#alertModal").addClass("show")
+            $("#alertModal").css({"display":"block"})
+        }
         hu_checked = $(".hu-check, #hu").prop("checked")
         bigger_hu_checked = $(this).attr("id")!="hu" && $(this).hasClass("hu-type")
         
@@ -276,7 +286,7 @@ $(document).ready(function() {
                     $(".target-name").eq(ind).text(player_names[key])
                     $("#z"+(ind+1)).attr("name",key)
                     $(".zhuang-check").eq(ind).attr("key",key)
-                    $(".zhuang-name").eq(ind).text(player_names[key])
+                    $(".zhuang-name").eq(ind).text(player_names[key]+"是庄")
                     ind++
                 }
             }

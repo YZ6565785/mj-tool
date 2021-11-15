@@ -195,31 +195,30 @@
                                 <div class="col">加<span id="zimo-value">0</span>番</div>
                             </div>
                             <br />
-                            <div class="row row-cols-3">
-                                <div class="col">
+                            <div class="row row-cols-2">
+                                <div class="col-8">
                                     <input class="form-check-input hu-check record-check" type="checkbox" name="zhuang" id="zhuang">
                                     <label class="form-check-label record-check-name" for="zhuang">我是庄家</label>
                                 </div>
-                                <div class="col"></div>
-                                <div class="col">加<span id="zhuang-value">0</span>番</div>
+                                <div class="col-4">加<span id="zhuang-value">0</span>番</div>
                             </div>
                             <div class="row">
                                     
                                     
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">
                                       Default radio
                                     </label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">
                                       Default checked radio
                                     </label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input zhuang-check record-check" type="radio" name="z" key="">
+                                    <input class="form-check-input zhuang-check hu-check record-check" type="radio" name="z" key="">
                                     <label class="form-check-label zhuang-name" for="z">P3</label>
                                 </div>
                             </div>
@@ -241,6 +240,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="alertModalLabel">未知对象</h5>
+                      <button type="button" class="btn-close alert-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning" role="alert">
+                            请先选胡谁！
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary alert-close" data-bs-dismiss="modal">确认</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
         </div>
         <div class="content"><h2>History:</h2></div>
