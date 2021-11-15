@@ -45,6 +45,24 @@ gang_left = ""
 gang_right = []
 zhuang = ""
 
+function doneAndClear() {
+    selected_player = ""
+    new_name = ""
+
+    total_fan = 0
+    hu_fan = 1
+    fan = 0
+    zhuang_fan = 0
+    zimo_fan = 0
+    qyj_fan = 0
+    record = ""
+    targets = ""
+    targets_zhuang = ""
+    gang_left = ""
+    gang_right = []
+    zhuang = ""
+}
+
 ///////////////////////////////////////////
 // user storage
 ///////////////////////////////////////////
@@ -220,36 +238,9 @@ function closeAlert() {
 }
 
 $(document).ready(function() {
-    $(".swipe-menu").click(function(){
-        if($(this).parent().hasClass("swap-open")){
-            $(".swap-item").removeClass("swap-open");
-        }else{
-            $(".swap-item").removeClass("swap-open");
-            $(this).parent().addClass("swap-open");
-        }
-    });
-    $(".swipe-right").click(function () {
-        t = $(this).attr("id").split("-")[1]
-        deleteOneHistoryByTime(history_record,t)
-        saveRecord()
-        showHistory(history_record,fan_rules,id2chinese,settings)
-        location.reload();
-    })
-    $("#delete-btn").click(function() {
-        deleteHistory(player_names)
-        saveRecord()
-        overall_points = {"up":0,"left":0,"right":0,"down":0,}
-        for (const key in overall_points) {
-            $("#"+key+"-score").text(overall_points[key])
-        }
-    })
-    $("#btn-record").click(function(){
-        if (selected_player!="") {
-            saveRecord()
-            showHistory(history_record,fan_rules,id2chinese,settings)
-            location.reload();
-        }
-    })
+    
+    
+    
     $("#btn-change-name").click(function(){
         if (selected_player!="") {
             player_names[selected_player] = $("#player-name").val()
@@ -363,21 +354,9 @@ $(document).ready(function() {
         }
         if (which_name=="g-zhuang") zhuang = key; record="g,"
         
-        console.log(gang_left);
-        console.log(gang_right);
-        console.log(zhuang);
     })
 
-    $("#btn-gang").click(function(){
-        if (gang_left=="" || gang_right == [] || zhuang==""){
-            showAlert("请选择"+((zhuang=="")?"庄家":"对象"))
-        }else{
-            saveZhuangRecord()
-            showHistory(history_record,fan_rules,id2chinese,settings)
-            location.reload();
-        }
-
-    })
+    
 
     $(".player").click(function() {
         // ################################################
@@ -477,28 +456,76 @@ $(document).ready(function() {
         $(this).select()
     })
     
-    // select target zhuang player
-    $(".zhuang-check").on("input proportychange", function () {
-        $("#target-zhuang-lb").text("")
-        $("#target-zhuang-lb").hide()
-        targets_zhuang = $(this).attr("key")
-        targets = $(".target-check").map(function(){
-            console.log($(this).attr("name"));
-            if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
-                $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
-                $("#target-zhuang-lb").show()
-                return $(this).attr("name")+"*"
-            }else if($(this).prop("checked")){
-                return $(this).attr("name")
-            }
-        }).get().toString()
-    })
+})
 
-    $("#limit-bar").on("input proportychange", function () {
-        settings["max-limit"] = $(this).val()
-        $("#max-limit").text($(this).val())
-        saveSettings()
+// select target zhuang player
+$(document).on("input proportychange",".zhuang-check", function () {
+    $("#target-zhuang-lb").text("")
+    $("#target-zhuang-lb").hide()
+    targets_zhuang = $(this).attr("key")
+    targets = $(".target-check").map(function(){
+        console.log($(this).attr("name"));
+        if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
+            $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
+            $("#target-zhuang-lb").show()
+            return $(this).attr("name")+"*"
+        }else if($(this).prop("checked")){
+            return $(this).attr("name")
+        }
+    }).get().toString()
+})
+
+$(document).on("click","#btn-record",function(){
+    if (selected_player!="") {
+        saveRecord()
         showHistory(history_record,fan_rules,id2chinese,settings)
-    })
+        doneAndClear()
+    }
+})
 
+$(document).on("click","#btn-gang",function(){
+    if (gang_left=="" || gang_right == [] || zhuang==""){
+        showAlert("请选择"+((zhuang=="")?"庄家":"对象"))
+    }else{
+        saveZhuangRecord()
+        showHistory(history_record,fan_rules,id2chinese,settings)
+        doneAndClear()
+    }
+
+})
+
+$(document).on("click",".swipe-menu",function(){
+    if($(this).parent().hasClass("swap-open")){
+        $(".swap-item").removeClass("swap-open");
+    }else{
+        $(".swap-item").removeClass("swap-open");
+        $(this).parent().addClass("swap-open");
+    }
+});
+
+
+$(document).on("click",".swipe-right",function () {
+    t = $(this).attr("id").split("-")[1]
+    deleteOneHistoryByTime(history_record,t)
+    saveRecord()
+    showHistory(history_record,fan_rules,id2chinese,settings)
+    doneAndClear()
+})
+
+$(document).on("click","#delete-btn",function() {
+    deleteHistory(player_names)
+    saveRecord()
+    overall_points = {"up":0,"left":0,"right":0,"down":0,}
+    for (const key in overall_points) {
+        $("#"+key+"-score").text(overall_points[key])
+    }
+    
+})
+
+$(document).on("input proportychange", "#limit-bar", function () {
+    settings["max-limit"] = $(this).val()
+    $("#max-limit").text($(this).val())
+    saveSettings()
+    showHistory(history_record,fan_rules,id2chinese,settings)
+    doneAndClear()
 })
