@@ -60,7 +60,7 @@ function showHistory(history_record,fan_rules,id2chinese) {
                 <div class='swipe-menu'><i class='fa fa-lg fa-ellipsis-v'></i></div>\
             </div>\
             <a href='#' class='swipe-btn swipe-left d-flex align-items-center justify-content-center'><i class='fa fa-lg fa-info'></i></a>\
-            <a href='#'' class='swipe-btn swipe-right d-flex align-items-center justify-content-center' id='history-"+fields[1]+"'><i class='far fa-trash-alt'></i></a>\
+            <a href='#'' class='swipe-btn swipe-right d-flex align-items-center justify-content-center' id='history-"+fields[1]+"'><i class='far fa-trash-alt' style='color:#AC0C0C'></i></a>\
         </li>"
         $("#history").append(new_list)
     });
