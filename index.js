@@ -19,6 +19,7 @@ fan_rules = {
     "zhuang":1,
     "qyj":1,
     "g":1,
+    "jgd":3,
 }
 id2chinese = {
     "th":"天胡",
@@ -33,6 +34,8 @@ id2chinese = {
     "qyj":"去幺九",
     "qyj":"去幺九",
     "g":"杠",
+    "jgd":"金钩钓",
+
 }
 record = ""
 targets = ""
@@ -42,7 +45,9 @@ gang_left = ""
 gang_right = []
 zhuang = ""
 
-
+///////////////////////////////////////////
+// user storage
+///////////////////////////////////////////
 player_names = {"up":"上","left":"左","right":"右","down":"下"}
 var names = localStorage.getItem('names');
 if (!(names===null)){
@@ -56,6 +61,12 @@ if (!(array===null)){
     history_record = JSON.parse(array)
     if (!Array.isArray(history_record)) history_record = []
     localStorage.setItem("history", JSON.stringify(history_record));
+}
+settings = {"max-limit":8}
+var array = localStorage.getItem('settings');
+if (!(array===null)){
+    settings = JSON.parse(array)
+    localStorage.setItem("settings", JSON.stringify(settings));
 }
 
 // setter methods
@@ -161,8 +172,12 @@ function saveZhuangRecord() {
 
 }
 
+function saveSettings() {
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
 
-showHistory(history_record,fan_rules,id2chinese)
+showMaxLimit(settings["max-limit"])
+showHistory(history_record,fan_rules,id2chinese,settings)
 
 var changeNameModal = document.getElementById('changeNameModal')
 changeNameModal.addEventListener('show.bs.modal', function (event) {
@@ -217,7 +232,7 @@ $(document).ready(function() {
         t = $(this).attr("id").split("-")[1]
         deleteOneHistoryByTime(history_record,t)
         saveRecord()
-        showHistory(history_record,fan_rules,id2chinese)
+        showHistory(history_record,fan_rules,id2chinese,settings)
         location.reload();
     })
     $("#delete-btn").click(function() {
@@ -231,7 +246,7 @@ $(document).ready(function() {
     $("#btn-record").click(function(){
         if (selected_player!="") {
             saveRecord()
-            showHistory(history_record,fan_rules,id2chinese)
+            showHistory(history_record,fan_rules,id2chinese,settings)
             location.reload();
         }
     })
@@ -256,6 +271,11 @@ $(document).ready(function() {
         hu_checked = $(".hu-check, #hu").prop("checked")
         bigger_hu_checked = $(this).attr("id")!="hu" && $(this).hasClass("hu-type")
         
+        // jgd and ddh cannot be selected at the same time
+        if ($(this).attr("id")=="ddh" && $(this).prop("checked")) $("#jgd").prop("checked",false)
+        if ($(this).attr("id")=="jgd" && $(this).prop("checked")) $("#ddh").prop("checked",false)
+
+        // hu cannot be selected if a bigger hu is selected, vice verse.
         if (hu_checked && $(this).attr("id")=="hu"){
             $(".hu-check").map(function(){
                 if ($(this).attr("id")!="hu"){
@@ -266,6 +286,7 @@ $(document).ready(function() {
         if (bigger_hu_checked ){
             $("#hu").prop("checked",false)
         }
+
 
         hu_list = $(".hu-check").map(function(){
             if ($(this).prop("checked")){
@@ -352,7 +373,7 @@ $(document).ready(function() {
             showAlert("请选择"+((zhuang=="")?"庄家":"对象"))
         }else{
             saveZhuangRecord()
-            showHistory(history_record,fan_rules,id2chinese)
+            showHistory(history_record,fan_rules,id2chinese,settings)
             location.reload();
         }
 
@@ -472,4 +493,12 @@ $(document).ready(function() {
             }
         }).get().toString()
     })
+
+    $("#limit-bar").on("input proportychange", function () {
+        settings["max-limit"] = $(this).val()
+        $("#max-limit").text($(this).val())
+        saveSettings()
+        showHistory(history_record,fan_rules,id2chinese,settings)
+    })
+
 })

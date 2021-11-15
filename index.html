@@ -33,6 +33,7 @@
                     <button class="btn btn-dark mr-auto" id="edit-btn">编辑玩家</button>
                 </div>
             </div>
+
             <!-- players and table -->
             <div class="row row-cols-3">
                 <span class="col"></span>
@@ -65,6 +66,7 @@
                 <span class="col"></span>
             </div>
 
+            <!-- Change Name -->
             <div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
@@ -88,6 +90,7 @@
                 </div>
             </div>
             
+            <!-- make record -->
             <div class="modal fade" id="recordModal" tabindex="-1" aria-labelledby="recordModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
@@ -112,6 +115,7 @@
                                     <span class="badge bg-dark" id="zimo-lb">自摸</span>
                                     <span class="badge bg-dark" id="zhuang-lb">庄家</span>
                                     <span class="badge bg-dark" id="qyj-lb">去幺九</span>
+                                    <span class="badge bg-info" id="jgd-lb">金钩钓</span>
                                     <span class="badge bg-danger" id="target-zhuang-lb"></span>
                                 </div>
                             </div>
@@ -142,6 +146,10 @@
                                 <div class="col">
                                     <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="ddh" id="ddh">
                                     <label class="form-check-label record-check-name" for="ddh">对对胡</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="jgd" id="jgd">
+                                    <label class="form-check-label record-check-name" for="jgd">金钩钓</label>
                                 </div>
                                 <div class="col">
                                     <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="qys" id="qys">
@@ -228,6 +236,7 @@
                 </div>
             </div>
 
+            <!-- make gang record -->
             <div class="modal fade" id="gangModal" tabindex="-1" aria-labelledby="gangModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
@@ -343,6 +352,7 @@
                 </div>
             </div>
 
+            <!-- alert msg -->
             <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                   <div class="modal-content">
@@ -363,6 +373,14 @@
               </div>
 
         </div>
+
+        <!-- set limit -->
+        <div class="content">
+            <label for="limit-bar" class="form-label">调整封顶：<span id="max-limit">8</span>番</label>
+            <input type="range" class="form-range" min="2" max="15" step="1" id="limit-bar">
+        </div>
+
+        <!-- History -->
         <div class="content"><h2>游戏记录:</h2></div>
         <ul class="list-group list-group-flush" id="history">
           </ul>

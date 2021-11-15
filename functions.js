@@ -1,5 +1,10 @@
 
-function showHistory(history_record,fan_rules,id2chinese) {
+function showMaxLimit(v) {
+    $("#max-limit").text(v)
+    $("#limit-bar").val(v)
+
+}
+function showHistory(history_record,fan_rules,id2chinese,settings) {
     history_record.sort(function(a, b){return parseInt(b.split(":")[1])-parseInt(a.split(":")[1])});
     $("#history").empty()
 
@@ -20,23 +25,41 @@ function showHistory(history_record,fan_rules,id2chinese) {
         
         n_key = fields[0]
         if(fields[4]=="-"){ // if loose
+            total_each = total
             if(fields[0].slice(-1)=="*"){
-                total_points = -Math.pow(2,total+1-1)
+                total_each=total+1
                 n_key = fields[0].slice(0,-1)
             }
-            else total_points = -Math.pow(2,total-1)
+            
+            // set max limit
+            if (total_each>settings["max-limit"]) {
+                points=Math.pow(2,settings["max-limit"]-1)
+            }else{
+                points=Math.pow(2,total_each-1)
+            }
+            total_points = -points
             
         } else{ // if win
             fields[3].split(",").forEach(each => {
                 if (each!="") {
+                    total_each = total
                     if (each.slice(-1)=="*"){
-                        total_points+=Math.pow(2,(total+1)-1)
-                    }else{
-                        total_points+=Math.pow(2,total-1)
+                        total_each = total+1
                     }
+                    
+                    // set max limit
+                    if (total_each>settings["max-limit"]) {
+                        points=Math.pow(2,settings["max-limit"]-1)
+                    }else{
+                        points=Math.pow(2,total_each-1)
+                    }
+                    total_points+=points
                 }
             });
         }
+        
+        
+
         overall_points[n_key]+=total_points
         
 

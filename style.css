@@ -30,12 +30,6 @@ section {
     padding: 10px;
 }
 
-input, textarea {
-    border: 1px black solid;
-    background-color: #f7f7f7;
-    font-family: courier;
-}
-
 /* classes */
 .container-fluid {
     padding: 0;
