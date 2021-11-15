@@ -126,6 +126,7 @@ input, textarea {
 .content {
     background-color: #eeeeee;
     padding: 30px;
+    overflow-x: hidden;
 }
 
 #edit-btn{
@@ -144,6 +145,7 @@ input, textarea {
     left:0;
     font-size: 0.8em;
     bottom:0.72em;
+    overflow: hidden;
 }
 .player{
     /* border: 1px solid #393e46; */
@@ -155,7 +157,7 @@ input, textarea {
     margin-bottom: 15px;
     font-size: 1rem;
     display: flex;
-    width: 300%;
+    /* width: 300%; */
     float: left;
 
 }
@@ -163,7 +165,7 @@ input, textarea {
     margin-bottom: 15px;
     font-size: 1rem;
     display: flex;
-    width: 300%;
+    width: 100%;
     float: left;
 }
 
