@@ -49,9 +49,9 @@
                     <span class="player-name" id="left-name">222</span>
                     <i class="fas fa-user-circle player-icon"></i>
                 </button>
-                <button class="col game-table btn" id="middle" data-bs-toggle="modal" data-bs-target="#gangModal">
+                <button class="col game-table btn" id="middle">
                     <i class="fas fa-square"></i>
-                    <span class="" id="middle-name">杠</span>
+                    <!-- <span class="" id="middle-name">杠</span> -->
                 </button>
                 <button class="col player btn" id="right" data-bs-toggle="modal" data-bs-target="#recordModal" seat="">
                     <span class="player-score" id="right-score">333</span>
@@ -371,9 +371,21 @@
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
+
+            <!-- setting buttons -->
+            <div class="row row-cols-2">
+                <div class="col">
+                    <button class="btn btn-dark mr-auto gang-btn" id="ag-btn" data-bs-toggle="modal" data-bs-target="#gangModal">暗杠</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-dark mr-auto gang-btn" id="mg-btn" data-bs-toggle="modal" data-bs-target="#gangModal">明杠</button>
+                </div>
+            </div>
 
         </div>
+
+        
 
         <!-- set limit -->
         <div class="content">

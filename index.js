@@ -18,7 +18,8 @@ fan_rules = {
     "zimo":1,
     "zhuang":1,
     "qyj":1,
-    "g":1,
+    "mg":1,
+    "ag":2,
     "jgd":3,
 }
 id2chinese = {
@@ -33,7 +34,8 @@ id2chinese = {
     "zhuang":"庄家",
     "qyj":"去幺九",
     "qyj":"去幺九",
-    "g":"杠",
+    "mg":"明杠",
+    "ag":"暗杠",
     "jgd":"金钩钓",
 
 }
@@ -44,6 +46,7 @@ targets_zhuang = ""
 gang_left = ""
 gang_right = []
 zhuang = ""
+gang_type = 1
 
 
 function resetAllFan() {
@@ -79,6 +82,7 @@ function doneAndClear() {
     gang_left = ""
     gang_right = []
     zhuang = ""
+    gang_type = 1
 
 }
 
@@ -323,10 +327,19 @@ $(document).ready(function() {
         setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
     })
     
-    $(".game-table").click(function() {
+    $(".gang-btn").click(function() {
         // ################################################
-        // buttons for game table
+        // buttons for gang
         // ################################################
+        if ($(this).attr("id")=="mg-btn") {
+            $("#gangModalLabel").text("明杠"); 
+            gang_type=1;
+        }
+        else if ($(this).attr("id")=="ag-btn") {
+            $("#gangModalLabel").text("暗杠"); 
+            gang_type=2;
+        }
+
         gang_left = ""
         gang_right = []
         zhuang = ""
@@ -355,7 +368,7 @@ $(document).ready(function() {
                 }
             })
         }
-        if (which_name=="g-zhuang") zhuang = key; record="g,"
+        if (which_name=="g-zhuang") zhuang = key; record=((gang_type==1)?"mg,":"ag,")
         
     })
 
