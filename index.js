@@ -50,7 +50,7 @@ function resetAllFan() {
     $("#fan-value").text(fan)
 
     $(".record-check").prop("checked",false)
-    
+
     $(".hu-check").map(function(){
         if ($(this).attr("id")!="hu"){
             $(this).prop("checked",false)
@@ -72,6 +72,7 @@ function doneAndClear() {
     zhuang_fan = 0
     zimo_fan = 0
     qyj_fan = 0
+
     record = ""
     targets = ""
     targets_zhuang = ""
@@ -79,7 +80,6 @@ function doneAndClear() {
     gang_right = []
     zhuang = ""
 
-    resetAllFan()
 }
 
 ///////////////////////////////////////////
@@ -365,6 +365,9 @@ $(document).ready(function() {
         // ################################################
         // buttons for player icon
         // ################################################
+        doneAndClear()
+        resetAllFan()
+
         selected_player = $(this).attr("id")
         
         if ($(".player-icon").attr("class").includes("fa-user-circle")){
@@ -479,10 +482,11 @@ $(document).on("input proportychange",".zhuang-check", function () {
 })
 
 $(document).on("click","#btn-record",function(){
+    console.log(selected_player,record);
     if (selected_player!="") {
         saveRecord()
         showHistory(history_record,fan_rules,id2chinese,settings)
-        doneAndClear()
+        
     }
 })
 
@@ -510,13 +514,14 @@ $(document).on("click",".swipe-menu",function(){
 $(document).on("click",".swipe-right",function () {
     t = $(this).attr("id").split("-")[1]
     deleteOneHistoryByTime(history_record,t)
-    saveRecord()
     showHistory(history_record,fan_rules,id2chinese,settings)
     doneAndClear()
+    saveRecord()
 })
 
 $(document).on("click","#delete-btn",function() {
     deleteHistory(player_names)
+    doneAndClear()
     saveRecord()
     overall_points = {"up":0,"left":0,"right":0,"down":0,}
     for (const key in overall_points) {
