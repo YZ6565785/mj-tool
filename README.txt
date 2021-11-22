@@ -2,8 +2,7 @@ Author: @Victor Zhang
 
 ## Website: http://mj.yuhangzhang.co.uk/
 
-This is a variable separator tool.
-It can help programmers to add variables between strings quickly and easily.
+麻将积分助手，四川麻将记番方式。
 
 
 
