@@ -78,7 +78,7 @@ function showHistory(history_record,fan_rules,id2chinese,settings) {
         }
         new_list = "<li class='list-group-item d-flex justify-content-end swipe-container'>\
             <div class='swap-item d-flex'>\
-                <div class='swipe-heure' style='color:"+info_color+"'>"+player_names[n_key]+" <i class='fas fa-thumbs-"+game_result+"'></i></div>\
+                <div class='swipe-heure' style='color:"+info_color+";"+((total_points>0)?"font-size:25px;":"")+"'>"+player_names[n_key]+" <i class='fas fa-thumbs-"+game_result+"'></i></div>\
                 <div class='swipe-text flex-grow-1'>"+chinese_hu+": "+total_points+"分</div>\
                 <div class='swipe-menu'><i class='fa fa-lg fa-ellipsis-v'></i></div>\
             </div>\

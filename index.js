@@ -45,15 +45,19 @@ targets_zhuang = ""
 
 gang_left = ""
 gang_right = []
-zhuang = ""
+zhuang = "down"
 gang_type = 1
 
+player_choose_list = []
 
 function resetAllFan() {
+    $("#target-zhuang-lb").text("")
+    $("#target-zhuang-lb").hide()
+
     $("#fan-value").text(fan)
-
+    
     $(".record-check").prop("checked",false)
-
+    
     $(".hu-check").map(function(){
         if ($(this).attr("id")!="hu"){
             $(this).prop("checked",false)
@@ -64,6 +68,13 @@ function resetAllFan() {
     $("#zimo-value").text(zimo_fan)
     $("#zhuang-value").text(zhuang_fan)
     setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
+}
+function resetAll() {
+    resetAllFan()
+    for (const key in player_names) {
+        $("."+key+"-profile-status").text("未选")
+        $("."+key+"-profile-status").css({"background":"#999"})
+    }
 }
 function doneAndClear() {
     selected_player = ""
@@ -81,8 +92,10 @@ function doneAndClear() {
     targets_zhuang = ""
     gang_left = ""
     gang_right = []
-    zhuang = ""
+    // zhuang = ""
     gang_type = 1
+
+    player_choose_list = []
 
 }
 
@@ -119,7 +132,7 @@ function setHuFan(fan_rules, hu_list) {
     hu_fan = 0
     hu_list.forEach(each => {
         hu_fan+=fan_rules[each]
-    });
+    })
 }
 function setZimoFan(v) {
     zimo_fan = v
@@ -141,27 +154,23 @@ function setQyjFan(v) {
 function setTotalFan(recordModal, player_names, fan_rules, selected_player, fan) {
     total_fan = fan
     record = ""
+
+    if (zhuang==selected_player){
+        $("#zhuang-lb").show()
+        total_fan+=fan_rules["zhuang"]
+        record+="zhuang,"
+    }else{
+        $("#zhuang-lb").hide()
+    }
+
     $(".hu-check").map(function(){
         if ($(this).prop("checked")){
-            // if i am zhuang, no need to choose others
-            if($(this).attr("id")=="zhuang") {
-                $(".zhuang-check").hide()
-                $(".zhuang-check").prop("checked",false)
-                $(".zhuang-name").hide()
-            }
             $("#"+$(this).attr("id")+"-lb").show()
             record+=$(this).attr("id")+","
             total_fan+=fan_rules[$(this).attr("id")]
         }else{
-            if($(this).attr("id")=="zhuang") {
-                $(".zhuang-check").show()
-                $(".zhuang-name").show()
-            }
             $("#"+$(this).attr("id")+"-lb").hide()
         }
-        $("#zhuang-lb").text("")
-        $("#zhuang-lb").hide()
-        
     })
     recordModal.querySelector('.modal-title').textContent = '为 ' + player_names[selected_player] + "记分, 合计：" + total_fan + "番"
 }
@@ -180,19 +189,39 @@ function saveRecord() {
     }
 }
 function saveZhuangRecord() {
+    if (player_choose_list.length <= 1) return 
+
+    record=((gang_type==1)?"mg,":"ag,")
+
     time_now = Date.now()
-    if (gang_left==zhuang) record+="zhuang,"
-    gang_right.forEach(each => {
+    if (player_choose_list[0]==zhuang) record+="zhuang,"
+
+    var winner = player_choose_list[0]
+    for (let i = 1; i < player_choose_list.length; i++) {
+        let each = player_choose_list[i]
+        
         if (each==zhuang) each+="*"
-        history_record.push(each+":"+time_now+":"+record+":"+gang_left+":"+"-"+":"+0)
-    });
+        history_record.push(each+":"+time_now+":"+record+":"+winner+":"+"-"+":"+0)
+    }
     
     targets=""
-    gang_right.forEach(each => {
+    for (let i = 1; i < player_choose_list.length; i++) {
+        let each = player_choose_list[i]
+
         if (each==zhuang) targets+=(each+"*,")
         else targets+=each+","
-    });
-    history_record.push(gang_left+":"+time_now+":"+record+":"+targets+":"+"+"+":"+0)
+    }
+    // gang_right.forEach(each => {
+    //     if (each==zhuang) each+="*"
+    //     history_record.push(each+":"+time_now+":"+record+":"+gang_left+":"+"-"+":"+0)
+    // });
+    
+    // targets=""
+    // gang_right.forEach(each => {
+    //     if (each==zhuang) targets+=(each+"*,")
+    //     else targets+=each+","
+    // });
+    history_record.push(winner+":"+time_now+":"+record+":"+targets+":"+"+"+":"+0)
     localStorage.setItem("history", JSON.stringify(history_record));
 
 }
@@ -209,7 +238,6 @@ changeNameModal.addEventListener('show.bs.modal', function (event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
-    var recipient = button.getAttribute('seat')
     var recipient = player_names[button.getAttribute("id")]
     // If necessary, you could initiate an AJAX request here
     // and then do the updating in a callback.
@@ -218,7 +246,7 @@ changeNameModal.addEventListener('show.bs.modal', function (event) {
     var modalTitle = changeNameModal.querySelector('.modal-title')
     var modalBodyInput = changeNameModal.querySelector('.modal-body input')
 
-    modalTitle.textContent = 'Change Name for ' + recipient
+    modalTitle.textContent = '为 “' + recipient + '” 更改昵称'
     modalBodyInput.value = recipient
     selected_player = $(button).attr("id")
 })
@@ -243,6 +271,115 @@ function closeAlert() {
     $("#alertModal").removeClass("show")
     $("#alertModal").css({"display":"none"})
 }
+
+function showProfileImage(){
+    for (const key in player_names) {
+        fields = player_names[key].split(" ")
+        if (fields.length<=1 && player_names[key].length<=3){
+            initials = player_names[key]
+        }else{
+            initials = ""
+            for (let i = 0; i < fields.length; i++) {
+                if (i==3) break
+                initials += fields[i].charAt(0)
+            }
+        }
+        $("."+key+"-profile-image").text(initials)
+        $("."+key+"-profile-image").css({"height":wid*0.8,"width":wid*0.8,"line-height":wid*0.8+"px"})
+    }
+}
+
+function setupPlayerChoose() {
+    targets=""
+    $("#target-zhuang-lb").hide()
+    for (const key in player_names) {
+        if (player_choose_list.includes(key)){
+            if (player_choose_list.indexOf(key)==0){
+                $("."+key+"-profile-status").text("赢")
+                $("."+key+"-profile-status").css({"background":"#1F6650"})
+            }else{
+                
+                $("."+key+"-profile-status").text("输")
+                $("."+key+"-profile-status").css({"background":"#EA5E5E"})
+
+                if (key==zhuang){
+                    $("#target-zhuang-lb").text("胡"+player_names[zhuang]+"二倍")
+                    $("#target-zhuang-lb").show()
+                    targets+=(key+"*,")
+                }else{
+                    targets+=(key+",")
+                }
+            }
+        }else{
+            $("."+key+"-profile-status").text("未选")
+            $("."+key+"-profile-status").css({"background":"#999"})
+        }
+    }
+}
+
+$(document).ready(function() {
+    wid = $(".player").width()
+    $(".player, .game-table").height(wid)
+    $(".player, .game-table").css({"font-size":wid*0.7})
+    // show the profile with initials
+    showProfileImage()
+    $(".profile-status").css({
+        "height":wid/3*0.8,"width":wid/3*0.8,"top":-wid*0.8,
+        "left":wid/2*0.8,
+        "font-size": wid/8*0.8+"px",
+        "line-height": wid/3*0.8+"px"})
+    $(".player-icon, .player-name").css({"display":"none"})
+    $(".hu-label, .fan-btn").css({"min-width":"100px"})
+    // default zhuang
+    $("#choose-zhuang").text(player_names['down'])
+    $("#zhuang-bar").val(4)
+    $(".down-profile-image").css({"background":"#E59934"})
+
+
+    player_key_list = $(".player").map(function () {
+        return $(this).attr("id")
+    })
+    for (let i = 0; i < player_key_list.length; i++) {
+        n = player_names[player_key_list[i]]
+        $("#"+player_key_list[i]+"-name").text(n)
+    }
+
+    $("#edit-btn").click(function() {
+        // ################################################
+        // buttons for player icon
+        // ################################################
+        class_str = $(".player-icon").attr("class")
+        // go to edit mode
+        if ($(".player-icon").css("display")=="none"){
+            $(".player-icon, .player-name").css({"display":"block"})
+            $(".profile-image").css({"display":"none"})
+            $("#edit-btn").text("完成")
+            $(".player-icon").css({"color":"#D06224"})
+            $(".player").map(function () {
+                $(this).attr("data-bs-target","#changeNameModal")
+            })
+        }else{ // go back to normal mode
+            $(".player-icon, .player-name").css({"display":"none"})
+            $(".profile-image").css({"display":"flow-root"})
+            $("#edit-btn").text("编辑玩家")
+            $(".player-icon").css({"color":"black"})
+            $(".player").map(function () {
+                $(this).attr("data-bs-target","#recordModal")
+            })
+            showProfileImage()
+            // $(".player").attr("data-bs-target","#changeNameModal")
+        }
+    })
+
+    $("#player-name").change(function () {
+        player_key = $(this).attr("id")
+        new_name = $(this).val()
+    })
+    $("#player-name").click(function () {
+        $(this).select()
+    })
+    
+})
 
 $(document).ready(function() {
     
@@ -339,143 +476,49 @@ $(document).ready(function() {
             $("#gangModalLabel").text("暗杠"); 
             gang_type=2;
         }
-
-        gang_left = ""
-        gang_right = []
-        zhuang = ""
-        $(".gang-left").prop("checked",false)
-        $(".gang-right").prop("checked",false)
-        $(".gang-zhuang").prop("checked",false)
-
-        let ind = 0
-        for (const key in player_names) {
-            $(".gang-left-name").eq(ind).text(player_names[key])
-            $(".gang-right-name").eq(ind).text(player_names[key])
-            $(".gang-zhuang-name").eq(ind).text(player_names[key])
-            ind++
-        }
     })
 
-    $(".gang-left, .gang-right, .gang-zhuang").on("input proportychange", function () {
-        which_name = $(this).attr("name")
-        key = $(this).attr("id").split("-")[2]
-        if (which_name=="g-left") gang_left = key
-        if (which_name=="g-right"){
-            gang_right = []
-            $(".gang-right").map(function () {
-                if ($(this).prop("checked")){
-                    gang_right.push($(this).attr("id").split("-")[2])
-                }
-            })
-        }
-        if (which_name=="g-zhuang") zhuang = key; record=((gang_type==1)?"mg,":"ag,")
-        
-    })
-
-    
 
     $(".player").click(function() {
         // ################################################
         // buttons for player icon
         // ################################################
         doneAndClear()
-        resetAllFan()
+        resetAll()
 
         selected_player = $(this).attr("id")
+
+        player_choose_list.push(selected_player)
+        setupPlayerChoose()
         
-        if ($(".player-icon").attr("class").includes("fa-user-circle")){
+        if ($(".player-icon").css("display")=="none"){
+            setZhuangFan((selected_player==zhuang)?1:0)
             setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
-            ind = 0
-            zhuang_names = $(".zhuang-name")
-            for (const key in player_names) {
-                if (key!=selected_player) {
-                    $("#t"+(ind+1)).attr("name",key)
-                    $(".target-name").eq(ind).text(player_names[key])
-                    $("#z"+(ind+1)).attr("name",key)
-                    $(".zhuang-check").eq(ind).attr("key",key)
-                    $(".zhuang-name").eq(ind).text(player_names[key]+"是庄")
-                    ind++
-                }
-            }
+            
         }else{
             new_name = ""
             $("#player-name").val(new_name)
             $("#player-name").focus()
         }
-        // select target player
-        $(".target-check").on("input proportychange", function () {
-            $("#target-zhuang-lb").text("")
-            $("#target-zhuang-lb").hide()
-            $(".zhuang-check").map(function () {
-                console.log($(this).attr("key"));
-                if ($(this).prop("checked")) {
-                    targets_zhuang = $(this).attr("key")
-                }
-            })
-            
-            targets = $(".target-check").map(function(){
-                if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
-                    $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
-                    $("#target-zhuang-lb").show()
-                    return $(this).attr("name")+"*"
-                }else if($(this).prop("checked")){
-                    return $(this).attr("name")
-                }
-            }).get().toString()
-        })
     })
-});
 
-$(document).ready(function() {
-    wid = $(".player").width()
-    $(".player, .game-table").height(wid)
-    $(".player, .game-table").css({"font-size":wid*0.7})
-    // $(".player-name").css({"padding":wid*0.2,})
-    $(".hu-label, .fan-btn").css({"min-width":"100px"})
-
-    player_key_list = $(".player").map(function () {
-        return $(this).attr("id")
-    })
-    for (let i = 0; i < player_key_list.length; i++) {
-        n = player_names[player_key_list[i]]
-        $("#"+player_key_list[i]+"-name").text(n)
-    }
-
-    $("#edit-btn").click(function() {
+    $(".player-choose").click(function() {
         // ################################################
         // buttons for player icon
         // ################################################
-        class_str = $(".player-icon").attr("class")
-        // go to edit mode
-        if (class_str.includes("fa-user-circle")){
-            $(".player-icon").removeClass("fa-user-circle")
-            $(".player-icon").addClass("fa-user-edit")
-            $("#edit-btn").text("完成")
-            $(".player").css({"color":"#E59934"})
-            $(".player").map(function () {
-                $(this).attr("data-bs-target","#changeNameModal")
-            })
-        }else{ // go back to normal mode
-            $(".player-icon").removeClass("fa-user-edit")
-            $(".player-icon").addClass("fa-user-circle")
-            $("#edit-btn").text("编辑玩家")
-            $(".player").css({"color":"black"})
-            $(".player").map(function () {
-                $(this).attr("data-bs-target","#recordModal")
-            })
-            // $(".player").attr("data-bs-target","#changeNameModal")
+        this_player = $(this).attr("player-id")
+        if (selected_player!=this_player){
+            if (player_choose_list.includes(this_player)){
+                var index = player_choose_list.indexOf(this_player);
+                if (index !== -1) player_choose_list.splice(index, 1);
+            }else{
+                player_choose_list.push(this_player)
+            }
         }
-    })
 
-    $("#player-name").change(function () {
-        player_key = $(this).attr("id")
-        new_name = $(this).val()
+        setupPlayerChoose()
     })
-    $("#player-name").click(function () {
-        $(this).select()
-    })
-    
-})
+});
 
 // select target zhuang player
 $(document).on("input proportychange",".zhuang-check", function () {
@@ -483,7 +526,6 @@ $(document).on("input proportychange",".zhuang-check", function () {
     $("#target-zhuang-lb").hide()
     targets_zhuang = $(this).attr("key")
     targets = $(".target-check").map(function(){
-        console.log($(this).attr("name"));
         if ($(this).prop("checked")&&($(this).attr("name")==targets_zhuang)){
             $("#target-zhuang-lb").text("胡"+player_names[targets_zhuang]+"二倍")
             $("#target-zhuang-lb").show()
@@ -495,22 +537,31 @@ $(document).on("input proportychange",".zhuang-check", function () {
 })
 
 $(document).on("click","#btn-record",function(){
-    console.log(selected_player,record);
     if (selected_player!="") {
         saveRecord()
         showHistory(history_record,fan_rules,id2chinese,settings)
-        
+        doneAndClear()
+        resetAll()
     }
 })
 
+$(document).on("click",".btn-cancel",function(){
+    doneAndClear()
+    resetAll()
+})
+
 $(document).on("click","#btn-gang",function(){
-    if (gang_left=="" || gang_right == [] || zhuang==""){
-        showAlert("请选择"+((zhuang=="")?"庄家":"对象"))
-    }else{
-        saveZhuangRecord()
-        showHistory(history_record,fan_rules,id2chinese,settings)
-        doneAndClear()
-    }
+    // if (gang_left=="" || gang_right == [] || zhuang==""){
+    //     showAlert("请选择"+((zhuang=="")?"庄家":"对象"))
+    // }else{
+    //     saveZhuangRecord()
+    //     showHistory(history_record,fan_rules,id2chinese,settings)
+    // }
+    saveZhuangRecord()
+    showHistory(history_record,fan_rules,id2chinese,settings)
+
+    doneAndClear()
+    resetAll()
 
 })
 
@@ -522,7 +573,6 @@ $(document).on("click",".swipe-menu",function(){
         $(this).parent().addClass("swap-open");
     }
 });
-
 
 $(document).on("click",".swipe-right",function () {
     t = $(this).attr("id").split("-")[1]
@@ -549,4 +599,20 @@ $(document).on("input proportychange", "#limit-bar", function () {
     saveSettings()
     showHistory(history_record,fan_rules,id2chinese,settings)
     doneAndClear()
+})
+
+$(document).on("input proportychange", "#zhuang-bar", function () {
+    ind = 1
+    for (const key in player_names) {
+        if (ind==$(this).val()){
+            zhuang = key
+            $("."+key+"-profile-image").css({"background":"#E59934"})
+        }
+        else{
+            $("."+key+"-profile-image").css({"background":"#512DA8"})
+        }
+        ind++;
+    }
+    
+    $("#choose-zhuang").text(player_names[zhuang])
 })
