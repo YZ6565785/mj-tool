@@ -15,6 +15,7 @@
     <script src="https://kit.fontawesome.com/965196d787.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/style.min.css">
     <link rel="stylesheet" href="styles/range.min.css">
+
     <!-- edit mode -->
     <!-- <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/range.css"> -->
@@ -25,6 +26,8 @@
         <section id="title">
             <h1>麻将积分助手</h1>
         </section>
+        
+        <div id="liveAlertPlaceholder"></div>
 
         <div class="container" id="main">
             <!-- setting buttons -->
@@ -37,11 +40,7 @@
                 </div>
             </div>
 
-            <!-- set zhuang -->
-            <div class="content">
-                <label for="zhuang-bar" class="form-label"><h4 style="font-weight: 900;color: brown;">庄家：<span id="choose-zhuang">未知</span></h4></label>
-                <input type="range" class="form-range" min="1" max="4" step="1" default="4" id="zhuang-bar">
-            </div>
+            
 
             <!-- players and table -->
             <div class="row row-cols-3">
@@ -322,6 +321,11 @@
         </div>
 
         
+        <!-- set zhuang -->
+        <div class="content">
+            <label for="zhuang-bar" class="form-label"><h4 style="font-weight: 900;color: brown;">庄家：<span id="choose-zhuang">未知</span></h4></label>
+            <input type="range" class="form-range" min="1" max="4" step="1" default="4" id="zhuang-bar">
+        </div>
 
         <!-- set limit -->
         <div class="content">
@@ -344,9 +348,10 @@
     <script type="text/javascript" src="scripts/favicon.min.js"></script>
     <script type="text/javascript" src="scripts/functions.min.js"></script>
     <script type="text/javascript" src="scripts/index.min.js"></script>
-    <!-- edit mode -->
-    <!-- <script type="text/javascript" src="scripts/functions.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script> -->
+    
+    <!-- edit mode !!! ONLY use one script (either min or normal script) at a time, otherwise will have bugs -->
+    <!-- <script type="text/javascript" src="scripts/functions.js"></script> -->
+    <!-- <script type="text/javascript" src="scripts/index.js"></script> -->
 </body>
 
 </html>

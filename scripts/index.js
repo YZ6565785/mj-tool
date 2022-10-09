@@ -36,8 +36,7 @@ id2chinese = {
     "qyj":"去幺九",
     "mg":"明杠",
     "ag":"暗杠",
-    "jgd":"金钩钓",
-
+    "jgd":"金钩钓"
 }
 record = ""
 targets = ""
@@ -49,6 +48,8 @@ zhuang = "down"
 gang_type = 1
 
 player_choose_list = []
+
+g_last_record_time = -1;
 
 function resetAllFan() {
     $("#target-zhuang-lb").text("")
@@ -103,6 +104,7 @@ function doneAndClear() {
 // user storage
 ///////////////////////////////////////////
 player_names = {"up":"上","left":"左","right":"右","down":"下"}
+player_indices = {"up":"1","left":"2","right":"3","down":"4"}
 var names = localStorage.getItem('names');
 if (!(names===null)){
     player_names = JSON.parse(names)
@@ -148,8 +150,6 @@ function setQyjFan(v) {
     qyj_fan = v
     $("#qyj-value").text(qyj_fan)
 }
-
-
 
 function setTotalFan(recordModal, player_names, fan_rules, selected_player, fan) {
     total_fan = fan
@@ -225,6 +225,26 @@ function saveZhuangRecord() {
     localStorage.setItem("history", JSON.stringify(history_record));
 
 }
+
+function setZhuangByInd( player_ind ) {
+    let ind = 1;
+    for ( const key in player_names ) {
+        if ( ind == player_ind ) {
+            zhuang = key;
+            $("."+key+"-profile-image").css({"background":"#E59934"});
+        }
+        else{
+            $("."+key+"-profile-image").css({"background":"#512DA8"});
+        }
+        ind++;
+    }
+    
+    $("#choose-zhuang").text(player_names[zhuang]);
+    new_record_time = Date.now();
+    console.log("Since last set zhuang: " + (new_record_time-g_last_record_time)/1000 + " seconds");
+    g_last_record_time = new_record_time;
+}
+// end of setters //
 
 function saveSettings() {
     localStorage.setItem("settings", JSON.stringify(settings));
@@ -382,7 +402,7 @@ $(document).ready(function() {
 })
 
 $(document).ready(function() {
-    
+    // reset functions or init functions
     
     
     $("#btn-change-name").click(function(){
@@ -398,39 +418,40 @@ $(document).ready(function() {
     })
 
     
-    // record a hu
+    // record a hu or set record
     $(".hu-check, .zhuang-check").on("input proportychange", function () {
         if (targets==""){
-            showAlert("请先选胡谁！")
+            showAlert("请先选胡谁！");
         }
-        hu_checked = $(".hu-check, #hu").prop("checked")
-        bigger_hu_checked = $(this).attr("id")!="hu" && $(this).hasClass("hu-type")
+        hu_checked = $(".hu-check, #hu").prop("checked");
+        bigger_hu_checked = $(this).attr("id")!="hu" && $(this).hasClass("hu-type");
         
         // jgd and ddh cannot be selected at the same time
-        if ($(this).attr("id")=="ddh" && $(this).prop("checked")) $("#jgd").prop("checked",false)
-        if ($(this).attr("id")=="jgd" && $(this).prop("checked")) $("#ddh").prop("checked",false)
+        if ($(this).attr("id")=="ddh" && $(this).prop("checked")) $("#jgd").prop("checked",false);
+        if ($(this).attr("id")=="jgd" && $(this).prop("checked")) $("#ddh").prop("checked",false);
 
         // hu cannot be selected if a bigger hu is selected, vice verse.
         if (hu_checked && $(this).attr("id")=="hu"){
             $(".hu-check").map(function(){
                 if ($(this).attr("id")!="hu"){
-                    $(this).prop("checked",false)
+                    $(this).prop("checked",false);
                 }
             })
         }
         if (bigger_hu_checked ){
-            $("#hu").prop("checked",false)
+            $("#hu").prop("checked",false);
         }
 
 
         hu_list = $(".hu-check").map(function(){
             if ($(this).prop("checked")){
-                return $(this).attr("id")
+                return $(this).attr("id");
             }
-        }).get()
-        setHuFan(fan_rules, hu_list)
-        setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
+        }).get();
+        setHuFan(fan_rules, hu_list);
+        setTotalFan(recordModal, player_names, fan_rules, selected_player, fan);
     })
+
     $(".fan-btn").click(function () {
         if ($(this).attr("name")=="minus-fan"){
             fan--
@@ -483,22 +504,20 @@ $(document).ready(function() {
         // ################################################
         // buttons for player icon
         // ################################################
-        doneAndClear()
-        resetAll()
+        doneAndClear();
+        resetAll();
 
-        selected_player = $(this).attr("id")
-
-        player_choose_list.push(selected_player)
-        setupPlayerChoose()
+        selected_player = $(this).attr("id");
+        player_choose_list.push(selected_player);
+        setupPlayerChoose();
         
         if ($(".player-icon").css("display")=="none"){
-            setZhuangFan((selected_player==zhuang)?1:0)
-            setTotalFan(recordModal, player_names, fan_rules, selected_player, fan)
-            
+            setZhuangFan((selected_player==zhuang)?1:0);
+            setTotalFan(recordModal, player_names, fan_rules, selected_player, fan);
         }else{
-            new_name = ""
-            $("#player-name").val(new_name)
-            $("#player-name").focus()
+            new_name = "";
+            $("#player-name").val(new_name);
+            $("#player-name").focus();
         }
     })
 
@@ -506,18 +525,17 @@ $(document).ready(function() {
         // ################################################
         // buttons for player icon
         // ################################################
-        this_player = $(this).attr("player-id")
+        this_player = $(this).attr("player-id");
         if (selected_player!=this_player){
             if (player_choose_list.includes(this_player)){
                 var index = player_choose_list.indexOf(this_player);
                 if (index !== -1) player_choose_list.splice(index, 1);
             }else{
-                player_choose_list.push(this_player)
+                player_choose_list.push(this_player);
             }
         }
-
         setupPlayerChoose()
-    })
+    });
 });
 
 // select target zhuang player
@@ -538,7 +556,30 @@ $(document).on("input proportychange",".zhuang-check", function () {
 
 $(document).on("click","#btn-record",function(){
     if (selected_player!="") {
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+        const alert = (message, type) => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('');
+            alertPlaceholder.append(wrapper)
+        }
+
         saveRecord()
+        {
+            new_record_time = Date.now();
+            TIMEOUT_TO_NEW_ZHUANG = 90;
+            // if last record is more than TIMEOUT_TO_NEW_ZHUANG seconds ago, 
+            // then we use the new record to choose zhuang
+            if ( ((new_record_time - g_last_record_time)/1000) > TIMEOUT_TO_NEW_ZHUANG ) { 
+                player_ind = player_indices[selected_player];
+                setZhuangByInd(player_ind);
+                alert('庄家被重置为：' + player_names[selected_player], 'warning')
+            }
+        }
         showHistory(history_record,fan_rules,id2chinese,settings)
         doneAndClear()
         resetAll()
@@ -601,18 +642,7 @@ $(document).on("input proportychange", "#limit-bar", function () {
     doneAndClear()
 })
 
+// choose zhuang
 $(document).on("input proportychange", "#zhuang-bar", function () {
-    ind = 1
-    for (const key in player_names) {
-        if (ind==$(this).val()){
-            zhuang = key
-            $("."+key+"-profile-image").css({"background":"#E59934"})
-        }
-        else{
-            $("."+key+"-profile-image").css({"background":"#512DA8"})
-        }
-        ind++;
-    }
-    
-    $("#choose-zhuang").text(player_names[zhuang])
+    setZhuangByInd($(this).val());
 })
