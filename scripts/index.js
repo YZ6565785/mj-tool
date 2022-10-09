@@ -99,12 +99,12 @@ function doneAndClear() {
     player_choose_list = []
 
 }
+player_indices = {"up":"1","left":"2","right":"3","down":"4"}
 
 ///////////////////////////////////////////
 // user storage
 ///////////////////////////////////////////
 player_names = {"up":"上","left":"左","right":"右","down":"下"}
-player_indices = {"up":"1","left":"2","right":"3","down":"4"}
 var names = localStorage.getItem('names');
 if (!(names===null)){
     player_names = JSON.parse(names)
@@ -352,11 +352,11 @@ $(document).ready(function() {
     $(".hu-label, .fan-btn").css({"min-width":"100px"})
     // default zhuang
     $("#choose-zhuang").text(player_names['down'])
-    $("#zhuang-bar").val(4);
     $("#zhuang-choice-up").text(player_names["up"]);
     $("#zhuang-choice-left").text(player_names["left"]);
     $("#zhuang-choice-right").text(player_names["right"]);
     $("#zhuang-choice-down").text(player_names["down"]);
+    $("#zhuang-bar").val(4);
     
     $(".down-profile-image").css({"background":"#E59934"})
 
