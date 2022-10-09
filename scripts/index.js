@@ -352,7 +352,12 @@ $(document).ready(function() {
     $(".hu-label, .fan-btn").css({"min-width":"100px"})
     // default zhuang
     $("#choose-zhuang").text(player_names['down'])
-    $("#zhuang-bar").val(4)
+    $("#zhuang-bar").val(4);
+    $("#zhuang-choice-up").text(player_names["up"]);
+    $("#zhuang-choice-left").text(player_names["left"]);
+    $("#zhuang-choice-right").text(player_names["right"]);
+    $("#zhuang-choice-down").text(player_names["down"]);
+    
     $(".down-profile-image").css({"background":"#E59934"})
 
 
@@ -643,6 +648,6 @@ $(document).on("input proportychange", "#limit-bar", function () {
 })
 
 // choose zhuang
-$(document).on("input proportychange", "#zhuang-bar", function () {
+$(document).on("input proportychange", "#zhuang-select-bar", function () {
     setZhuangByInd($(this).val());
 })

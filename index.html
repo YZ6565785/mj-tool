@@ -31,16 +31,29 @@
 
         <div class="container" id="main">
             <!-- setting buttons -->
-            <div class="row row-cols-2">
-                <div class="col">
+            <div class="row row-cols-3">
+                <div class="col-3">
                     <button class="btn btn-danger mr-auto" id="delete-btn">删除记录</button>
                 </div>
-                <div class="col">
+                <div class="col-6">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-4">
+                            <label class="form-label">庄家</label>
+                        </div>
+                        <div class="col-8">
+                            <select id="zhuang-select-bar" class="form-select" aria-label="Default select example">
+                                <option id="zhuang-choice-up" value="1">Error</option>
+                                <option id="zhuang-choice-left" value="2">Error</option>
+                                <option id="zhuang-choice-right" value="3">Error</option>
+                                <option id="zhuang-choice-down" value="4" selected>Error</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
                     <button class="btn btn-dark mr-auto" id="edit-btn">编辑玩家</button>
                 </div>
             </div>
-
-            
 
             <!-- players and table -->
             <div class="row row-cols-3">
@@ -321,11 +334,7 @@
         </div>
 
         
-        <!-- set zhuang -->
-        <div class="content">
-            <label for="zhuang-bar" class="form-label"><h4 style="font-weight: 900;color: brown;">庄家：<span id="choose-zhuang">未知</span></h4></label>
-            <input type="range" class="form-range" min="1" max="4" step="1" default="4" id="zhuang-bar">
-        </div>
+
 
         <!-- set limit -->
         <div class="content">
