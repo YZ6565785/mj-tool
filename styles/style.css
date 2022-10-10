@@ -113,15 +113,20 @@ section {
 /* ///////////////////////////////////////////////////// */
 /* new */
 .profile-image {
-    display:flow-root;
+    display:flex;
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
+    border: 8px solid #999;
     border-radius: 50%;
-    background: #512DA8;
+    /* background: #512DA8; */
+    background: #999;
     font-size: 35px;
     color: #fff;
-    text-align: center;
     margin: auto; 
+
+    /* text-align: center; */
 }
 .profile-status {
     position: relative;
@@ -222,12 +227,9 @@ section {
     display: flex;
 }
 
-.record-player-group {
-}
-
 .player-choose {
     height: 80px;
-    padding: 2px;
+    padding: 0px;
 }
 
 

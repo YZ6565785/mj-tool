@@ -73,8 +73,7 @@ function resetAllFan() {
 function resetAll() {
     resetAllFan()
     for (const key in player_names) {
-        $("."+key+"-profile-status").text("未选")
-        $("."+key+"-profile-status").css({"background":"#999"})
+        $("."+key+"-profile-image").css({"border-color":"#999"})
     }
 }
 function doneAndClear() {
@@ -232,9 +231,11 @@ function setZhuangByInd( player_ind ) {
         if ( ind == player_ind ) {
             zhuang = key;
             $("."+key+"-profile-image").css({"background":"#E59934"});
+            $("."+key+"-profile-image").css({"border-color":"#E59934"});
         }
         else{
             $("."+key+"-profile-image").css({"background":"#512DA8"});
+            $("."+key+"-profile-image").css({"border-color":"#512DA8"});
         }
         ind++;
     }
@@ -305,7 +306,7 @@ function showProfileImage(){
             }
         }
         $("."+key+"-profile-image").text(initials)
-        $("."+key+"-profile-image").css({"height":wid*0.8,"width":wid*0.8,"line-height":wid*0.8+"px"})
+        // $("."+key+"-profile-image").css({"height":wid*0.8,"width":wid*0.8,"line-height":wid*0.8+"px"})
     }
 }
 
@@ -315,12 +316,10 @@ function setupPlayerChoose() {
     for (const key in player_names) {
         if (player_choose_list.includes(key)){
             if (player_choose_list.indexOf(key)==0){
-                $("."+key+"-profile-status").text("赢")
-                $("."+key+"-profile-status").css({"background":"#1F6650"})
+                $("."+key+"-profile-image").css({"border-color":"#1F6650"})
             }else{
                 
-                $("."+key+"-profile-status").text("输")
-                $("."+key+"-profile-status").css({"background":"#EA5E5E"})
+                $("."+key+"-profile-image").css({"border-color":"#EA5E5E"})
 
                 if (key==zhuang){
                     $("#target-zhuang-lb").text("胡"+player_names[zhuang]+"二倍")
@@ -331,8 +330,7 @@ function setupPlayerChoose() {
                 }
             }
         }else{
-            $("."+key+"-profile-status").text("未选")
-            $("."+key+"-profile-status").css({"background":"#999"})
+            $("."+key+"-profile-image").css({"border-color":"#999"})
         }
     }
 }
@@ -343,11 +341,11 @@ $(document).ready(function() {
     $(".player, .game-table").css({"font-size":wid*0.7})
     // show the profile with initials
     showProfileImage()
-    $(".profile-status").css({
-        "height":wid/3*0.8,"width":wid/3*0.8,"top":-wid*0.8,
-        "left":wid/2*0.8,
-        "font-size": wid/8*0.8+"px",
-        "line-height": wid/3*0.8+"px"})
+    // $(".profile-status").css({
+    //     "height":wid/3*0.8,"width":wid/3*0.8,"top":-wid*0.8,
+    //     "left":wid/2*0.8,
+    //     "font-size": wid/8*0.8+"px",
+    //     "line-height": wid/3*0.8+"px"})
     $(".player-icon, .player-name").css({"display":"none"})
     $(".hu-label, .fan-btn").css({"min-width":"100px"})
     // default zhuang
@@ -358,7 +356,8 @@ $(document).ready(function() {
     $("#zhuang-choice-down").text(player_names["down"]);
     $("#zhuang-bar").val(4);
     
-    $(".down-profile-image").css({"background":"#E59934"})
+    $(".down-profile-image").css({"background":"#E59934"}); // zhuang color
+    $(".down-profile-image").css({"border-color":"#E59934"}); // zhuang border color
 
 
     player_key_list = $(".player").map(function () {
@@ -385,7 +384,7 @@ $(document).ready(function() {
             })
         }else{ // go back to normal mode
             $(".player-icon, .player-name").css({"display":"none"})
-            $(".profile-image").css({"display":"flow-root"})
+            // $(".profile-image").css({"display":"flow-root"})
             $("#edit-btn").text("编辑玩家")
             $(".player-icon").css({"color":"black"})
             $(".player").map(function () {
