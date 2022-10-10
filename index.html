@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="styles/style.min.css">
     <link rel="stylesheet" href="styles/range.min.css">
 
-    <!-- edit mode -->
-    <!-- <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/range.css"> -->
+    <!-- dev mode -->
+    <!-- <link rel="stylesheet" href="styles/style.css"> -->
+    <!-- <link rel="stylesheet" href="styles/range.css"> -->
 </head>
 
 <body>
@@ -145,38 +145,49 @@
                             </div>
 
                         </form>
-                            <!-- choose player  -->
-                            <div class="row row-cols-3">
-                                <span class="col"></span>
-                                <button class="col player-choose btn" id="up-choose" player-id="up">
+
+                        <!-- choose player  -->
+                        <div>
+                            <div class="row record-player-group">
+                                <span class="col-2"></span>
+                                <span class="col-2"></span>
+                                <button class="col-4 player-choose btn" id="up-choose" player-id="up">
                                     <i class="fas fa-user-edit player-icon"></i>
-                                    <div class="profile-image up-profile-image">AB</div>
+                                    <div class="profile-image player-choose-image up-profile-image">AB</div>
                                     <div class="profile-status up-profile-status">未选</div>
                                 </button>
-                                <span class="col"></span>
-                                <button class="col player-choose btn" id="left-choose" player-id="left">
+                                <span class="col-2"></span>
+                                <span class="col-2"></span>
+                            </div>
+                            <div class="row record-player-group">
+                                <span class="col-1"></span>
+                                <button class="col-4 player-choose btn" id="left-choose" player-id="left">
                                     <i class="fas fa-user-edit player-icon"></i>
-                                    <div class="profile-image left-profile-image">AB</div>
+                                    <div class="profile-image player-choose-image left-profile-image">AB</div>
                                     <div class="profile-status left-profile-status">未选</div>
                                 </button>
-                                <button class="col game-table btn">
-                                    <img class="table-image" src="images/2857087.png" alt="">
-                                </button>
-                                <button class="col player-choose btn" id="right-choose" player-id="right">
+                                <span class="col-2"></span>
+                                <button class="col-4 player-choose btn" id="right-choose" player-id="right">
                                     <i class="fas fa-user-edit player-icon"></i>
-                                    <div class="profile-image right-profile-image">AB</div>
+                                    <div class="profile-image player-choose-image right-profile-image">AB</div>
                                     <div class="profile-status right-profile-status">未选</div>
                                 </button>
-                                <span class="col"></span>
-                                <button class="col player-choose btn" id="down-choose" player-id="down">
+                                <span class="col-1"></span>
+                            </div>
+                            <div class="row record-player-group">
+                                <span class="col-2"></span>
+                                <span class="col-2"></span>
+                                <button class="col-4 player-choose btn" id="down-choose" player-id="down">
                                     <i class="fas fa-user-edit player-icon"></i>
-                                    <div class="profile-image down-profile-image">AB</div>
+                                    <div class="profile-image player-choose-image down-profile-image">AB</div>
                                     <div class="profile-status down-profile-status">未选</div>
                                 </button>
-                                <span class="col"></span>
+                                <span class="col-2"></span>
+                                <span class="col-2"></span>
                             </div>
+                        </div>
                             <br>
-
+                        
                             <div class="row row-cols-3">
                                 <div class="col">
                                     <input class="form-check-input hu-check record-check hu-type" type="checkbox" name="hu" id="hu" checked>
@@ -358,7 +369,7 @@
     <script type="text/javascript" src="scripts/functions.min.js"></script>
     <script type="text/javascript" src="scripts/index.min.js"></script>
     
-    <!-- edit mode !!! ONLY use one script (either min or normal script) at a time, otherwise will have bugs -->
+    <!-- dev mode !!! ONLY use one script (either min or normal script) at a time, otherwise will have bugs -->
     <!-- <script type="text/javascript" src="scripts/functions.js"></script> -->
     <!-- <script type="text/javascript" src="scripts/index.js"></script> -->
 </body>
