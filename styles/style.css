@@ -165,15 +165,17 @@ section {
     text-align: center;
     margin: auto; 
 }
-.table-image {
-    display:flow-root;
-    width: 80px;
-    height: 80px;
-    font-size: 35px;
-    color: #fff;
-    text-align: center;
-    margin: auto; 
+@media (max-width: 420px) {
+    .table-image {
+        width: 50px;
+        height: 50px;
+    }
 }
+@media (max-width: 310px) {
+    .table-image {
+        display:none;
+    }
+  }
 
 .secton-title{
     float: left;
