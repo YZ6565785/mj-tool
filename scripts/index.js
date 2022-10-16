@@ -1,3 +1,5 @@
+const DEFAULT_ZHUANG_IND = 4;
+
 selected_player = ""
 new_name = ""
 
@@ -72,8 +74,9 @@ function resetAllFan() {
 }
 function resetAll() {
     resetAllFan()
+    // We dont need to reset the border-color (actually the player choose) of the player buttons
     for (const key in player_names) {
-        $("."+key+"-profile-image").css({"border-color":"#999"})
+        $("."+key+"-player-btn").css({"border-color":"#999"}) ;
     }
 }
 function doneAndClear() {
@@ -230,17 +233,17 @@ function setZhuangByInd( player_ind ) {
     for ( const key in player_names ) {
         if ( ind == player_ind ) {
             zhuang = key;
-            $("."+key+"-profile-image").css({"background":"#E59934"});
-            $("."+key+"-profile-image").css({"border-color":"#E59934"});
+            $("."+key+"-player-btn").removeClass("player-btn-secondary");
+            $("."+key+"-player-btn").addClass("player-btn-primary");
         }
         else{
-            $("."+key+"-profile-image").css({"background":"#512DA8"});
-            $("."+key+"-profile-image").css({"border-color":"#512DA8"});
+            $("."+key+"-player-btn").removeClass("player-btn-primary");
+            $("."+key+"-player-btn").addClass("player-btn-secondary");
         }
         ind++;
     }
     
-    $("#choose-zhuang").text(player_names[zhuang]);
+    $(".zhuang-profile-text").text(player_names[zhuang].charAt(0));
     new_record_time = Date.now();
     console.log("Since last set zhuang: " + (new_record_time-g_last_record_time)/1000 + " seconds");
     g_last_record_time = new_record_time;
@@ -305,8 +308,7 @@ function showProfileImage(){
                 initials += fields[i].charAt(0)
             }
         }
-        $("."+key+"-profile-image").text(initials)
-        // $("."+key+"-profile-image").css({"height":wid*0.8,"width":wid*0.8,"line-height":wid*0.8+"px"})
+        $("."+key+"-profile-text").text(initials);
     }
 }
 
@@ -316,10 +318,10 @@ function setupPlayerChoose() {
     for (const key in player_names) {
         if (player_choose_list.includes(key)){
             if (player_choose_list.indexOf(key)==0){
-                $("."+key+"-profile-image").css({"border-color":"#1F6650"})
+                $("."+key+"-player-btn").css({"border-color":"#1F6650"}) // green
             }else{
                 
-                $("."+key+"-profile-image").css({"border-color":"#EA5E5E"})
+                $("."+key+"-player-btn").css({"border-color":"#EA5E5E"}) // red
 
                 if (key==zhuang){
                     $("#target-zhuang-lb").text("胡"+player_names[zhuang]+"二倍")
@@ -330,15 +332,16 @@ function setupPlayerChoose() {
                 }
             }
         }else{
-            $("."+key+"-profile-image").css({"border-color":"#999"})
+            $("."+key+"-player-btn").css({"border-color":"#999"});
         }
     }
 }
 
 $(document).ready(function() {
     wid = $(".player").width()
-    $(".player, .game-table").height(wid)
-    $(".player, .game-table").css({"font-size":wid*0.7})
+    // $(".player, .game-table").height(wid) // we don't control height of the player/player-profile anymore
+    // $(".player, .game-table").css({"font-size":wid*0.7})
+    // $(".player-profile-text").css({"font-size":wid*0.7})
     // show the profile with initials
     showProfileImage()
     // $(".profile-status").css({
@@ -354,10 +357,8 @@ $(document).ready(function() {
     $("#zhuang-choice-left").text(player_names["left"]);
     $("#zhuang-choice-right").text(player_names["right"]);
     $("#zhuang-choice-down").text(player_names["down"]);
-    $("#zhuang-bar").val(4);
-    
-    $(".down-profile-image").css({"background":"#E59934"}); // zhuang color
-    $(".down-profile-image").css({"border-color":"#E59934"}); // zhuang border color
+    $("#zhuang-bar").val(DEFAULT_ZHUANG_IND);
+    setZhuangByInd(DEFAULT_ZHUANG_IND); /* set the 4th player as zhuang by default */
 
 
     player_key_list = $(".player").map(function () {
@@ -375,22 +376,22 @@ $(document).ready(function() {
         class_str = $(".player-icon").attr("class")
         // go to edit mode
         if ($(".player-icon").css("display")=="none"){
-            $(".player-icon, .player-name").css({"display":"block"})
-            $(".profile-image").css({"display":"none"})
-            $("#edit-btn").text("完成")
-            $(".player-icon").css({"color":"#D06224"})
+            $(".player-icon, .player-name").css({"display":"block"});
+            $(".player-profile-text").css({"display":"none"});
+            $("#edit-btn").text("完成");
+            $(".player-icon").css({"color":"#D06224"});
             $(".player").map(function () {
-                $(this).attr("data-bs-target","#changeNameModal")
+                $(this).attr("data-bs-target","#changeNameModal");
             })
         }else{ // go back to normal mode
-            $(".player-icon, .player-name").css({"display":"none"})
-            // $(".profile-image").css({"display":"flow-root"})
-            $("#edit-btn").text("编辑玩家")
-            $(".player-icon").css({"color":"black"})
+            $(".player-icon, .player-name").css({"display":"none"});
+            $(".player-profile-text").css({"display":"flex"});
+            $("#edit-btn").text("编辑玩家");
+            $(".player-icon").css({"color":"black"});
             $(".player").map(function () {
-                $(this).attr("data-bs-target","#recordModal")
+                $(this).attr("data-bs-target","#recordModal");
             })
-            showProfileImage()
+            showProfileImage();
             // $(".player").attr("data-bs-target","#changeNameModal")
         }
     })
@@ -503,7 +504,6 @@ $(document).ready(function() {
         }
     })
 
-
     $(".player").click(function() {
         // ################################################
         // buttons for player icon
@@ -538,7 +538,7 @@ $(document).ready(function() {
                 player_choose_list.push(this_player);
             }
         }
-        setupPlayerChoose()
+        setupPlayerChoose();
     });
 });
 
@@ -578,10 +578,12 @@ $(document).on("click","#btn-record",function(){
             TIMEOUT_TO_NEW_ZHUANG = 90;
             // if last record is more than TIMEOUT_TO_NEW_ZHUANG seconds ago, 
             // then we use the new record to choose zhuang
-            if ( ((new_record_time - g_last_record_time)/1000) > TIMEOUT_TO_NEW_ZHUANG ) { 
+            need_reset_zhuang = ((new_record_time - g_last_record_time)/1000) > TIMEOUT_TO_NEW_ZHUANG;
+            console.log((new_record_time - g_last_record_time)/1000 + " > " + TIMEOUT_TO_NEW_ZHUANG + "? -> [" + need_reset_zhuang + "]");
+            if ( need_reset_zhuang ) { 
                 player_ind = player_indices[selected_player];
                 setZhuangByInd(player_ind);
-                alert('庄家被重置为：' + player_names[selected_player], 'warning')
+                alert('庄家被重置为：' + player_names[selected_player], 'warning');
             }
         }
         showHistory(history_record,fan_rules,id2chinese,settings)

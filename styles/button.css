@@ -1,0 +1,9 @@
+:root {
+  --animation-color: #E59934;
+  --hover-color: #ccc;
+  --btn-color: #999;
+}
+
+.player-profile-text {
+  display:flex;
+}
